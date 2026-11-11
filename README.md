@@ -25,7 +25,7 @@ The official website of the **7FOR1 (Seven For One) Foundation**, which trains A
 | Framework | [Next.js](https://nextjs.org) (App Router), React, TypeScript |
 | CMS / admin | [Payload CMS 3](https://payloadcms.com), running inside the Next.js app |
 | Database | PostgreSQL |
-| Media storage | S3-compatible bucket (Cloudflare R2) |
+| Media storage | Vercel Blob |
 | Email | Brevo (form notifications and newsletter) |
 | Styling | Tailwind CSS |
 | Spam protection | Cloudflare Turnstile |
@@ -60,7 +60,7 @@ pnpm dev
 | `DATABASE_URI` | PostgreSQL connection string |
 | `PAYLOAD_SECRET` | Long random string used to sign admin sessions |
 | `NEXT_PUBLIC_SITE_URL` | Public URL of the site |
-| `S3_BUCKET`, `S3_ENDPOINT`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY` | Media storage |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob media storage (created automatically when a Blob store is connected to the Vercel project) |
 | `BREVO_API_KEY` | Email sending and newsletter list sync |
 | `CONTACT_INBOX` | Where contact and volunteer notifications are sent |
 | `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Spam protection on public forms |
