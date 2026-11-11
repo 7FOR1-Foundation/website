@@ -7,13 +7,15 @@ The official website of the **7FOR1 (Seven For One) Foundation**, which trains A
 ## Features
 
 **Public site**
-- Home, About, Projects & Initiatives, Blog
+- Home, About, Blog
+- Initiatives: each initiative's page shows its goal and the projects carried out for it, and each project has its own page
 - Contact form (messages are saved and forwarded to the foundation inbox)
 - Volunteer sign-up
 - Newsletter subscription (double opt-in)
 
 **Admin panel** (`/admin`)
-- Create, edit and publish blog posts and projects
+- Create, edit and publish blog posts
+- Manage initiatives and add the projects carried out under each one
 - View and manage volunteer sign-ups (with CSV export)
 - Read and track contact messages
 - Edit site-wide content: contact details, social links, impact numbers
