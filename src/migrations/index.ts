@@ -1,0 +1,21 @@
+import * as migration_20261111_171322_initial from './20261111_171322_initial';
+import * as migration_20261111_181203_initiative_sort_default from './20261111_181203_initiative_sort_default';
+import * as migration_20261111_181939_form_links from './20261111_181939_form_links';
+
+export const migrations = [
+  {
+    up: migration_20261111_171322_initial.up,
+    down: migration_20261111_171322_initial.down,
+    name: '20261111_171322_initial',
+  },
+  {
+    up: migration_20261111_181203_initiative_sort_default.up,
+    down: migration_20261111_181203_initiative_sort_default.down,
+    name: '20261111_181203_initiative_sort_default',
+  },
+  {
+    up: migration_20261111_181939_form_links.up,
+    down: migration_20261111_181939_form_links.down,
+    name: '20261111_181939_form_links'
+  },
+];

@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+
+/* Brand tokens from the Figma design. */
+@theme {
+  --font-sans: var(--font-lato), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #eaf5ff; /* page background */
+  --color-brand-100: #d6ebfa; /* tags, soft panels */
+  --color-brand-500: #1a87b7; /* icons, accents */
+  --color-brand-600: #136d94; /* buttons, links, blue bands (white text passes WCAG AA) */
+  --color-brand-700: #0f5877; /* hover */
+  --color-brand-900: #05374c; /* top bar */
+  --color-ink: #282828; /* headings */
+  --color-body: #525252; /* body text */
+  --color-night: #1e1e1e; /* newsletter band */
+  --color-sister: #ffd8a8; /* sister-initiative tag */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-brand-50 font-sans text-body antialiased;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-brand-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  /* On blue and dark backgrounds the brand-blue ring is too faint (WCAG 2.4.11), so use white. */
+  .on-dark :focus-visible {
+    outline-color: #fff;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-16;
+}
+
+@utility btn {
+  @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-6 text-center text-base font-bold transition-[color,background-color,border-color] sm:min-h-14 sm:px-8 sm:text-lg;
+}
+
+@utility btn-primary {
+  @apply btn bg-brand-600 text-white hover:bg-brand-700;
+}
+
+@utility btn-outline {
+  @apply btn border-2 border-brand-600 bg-white text-brand-600 hover:bg-brand-50;
+}
+
+/* Rich text from the admin editor. */
+@utility prose-content {
+  & > * + * {
+    margin-top: 1.25em;
+  }
+  & h2 {
+    @apply text-2xl font-bold text-ink;
+  }
+  & h3 {
+    @apply text-xl font-bold text-ink;
+  }
+  & a {
+    @apply text-brand-600 underline;
+  }
+  & ul {
+    @apply list-disc pl-6;
+  }
+  & ol {
+    @apply list-decimal pl-6;
+  }
+}
+
+@utility heading-section {
+  @apply text-3xl font-bold text-ink sm:text-4xl;
+}

@@ -38,22 +38,37 @@ See the architecture doc for the full design: data model, key flows, security an
 ## Getting started
 
 ### Prerequisites
-- Node.js 20 or later
-- pnpm
-- A PostgreSQL database (local via Docker, or a free Neon/Supabase instance)
+- Node.js 24.22 or later (see `.nvmrc`; `nvm use` picks it up)
+- pnpm 10 (`corepack enable pnpm`)
+- A PostgreSQL database: local (for example `brew install postgresql@17`) or a free Neon database
 
 ### Setup
 
 ```bash
-git clone <repo-url>
-cd 7for1-website
+git clone git@github.com:7FOR1-Foundation/website.git
+cd website
 pnpm install
-cp .env.example .env   # then fill in the values
+cp .env.example .env   # then fill in DATABASE_URI and PAYLOAD_SECRET
+pnpm payload migrate   # create the database tables
+pnpm seed              # optional: fill in the home page and initiatives from the design
 pnpm dev
 ```
 
 - Website: http://localhost:3000
-- Admin panel: http://localhost:3000/admin. On first run you'll be asked to create the first admin user.
+- Admin panel: http://localhost:3000/admin. On first run you'll be asked to create the first account, which becomes an admin.
+
+Without `BLOB_READ_WRITE_TOKEN`, uploaded images are saved to the local `media/` folder (not committed).
+
+### Changing the content model
+
+After editing a collection or global in `src/collections` or `src/globals`:
+
+```bash
+pnpm generate:types                  # update src/payload-types.ts
+pnpm payload migrate:create <name>   # write a migration for the database change
+```
+
+Commit the new migration; it runs automatically on the next deploy.
 
 ### Environment variables
 
@@ -78,10 +93,18 @@ Never commit `.env`. Only `.env.example` (with empty values) belongs in the repo
 | `pnpm start` | Run the production build |
 | `pnpm lint` | Lint the code |
 | `pnpm payload migrate` | Apply database migrations |
+| `pnpm seed` | Fill an empty database with the starting content |
+| `pnpm build:vercel` | Apply migrations, then build (used by Vercel) |
 
 ## Deployment
 
-Pushing to `main` deploys to production on Vercel. Each pull request gets its own preview URL. Database migrations run during the build.
+Pushing to `main` deploys to production on Vercel. Each pull request gets its own preview URL.
+
+Vercel project settings:
+- **Build Command:** `pnpm build:vercel` (runs database migrations, then builds)
+- **Environment variables:** `DATABASE_URI`, `PAYLOAD_SECRET`, `NEXT_PUBLIC_SITE_URL`, plus `BLOB_READ_WRITE_TOKEN`, which Vercel adds when you connect a Blob store
+
+Pages are built ahead of time and refreshed automatically when content is saved in the admin.
 
 ## Contributing
 

@@ -41,3 +41,6 @@ next-env.d.ts
 # Local photo working files: originals and participant photos stay out of git
 # until consent and repo visibility are decided
 assets/images/
+
+# Local Claude Code / editor launch settings
+.claude/
