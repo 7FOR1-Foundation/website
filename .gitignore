@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Next.js / build output
+.next/
+out/
+build/
+dist/
+
+# Environment and secrets
+.env
+.env*.local
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Payload / media uploads (stored in cloud storage, not git)
+media/
+
+# Testing
+coverage/
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Local photo working files: originals and participant photos stay out of git
+# until consent and repo visibility are decided
+assets/images/
