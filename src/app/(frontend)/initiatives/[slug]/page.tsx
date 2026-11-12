@@ -7,7 +7,9 @@ import { notFound } from 'next/navigation'
 import { CmsLink } from '@/components/CmsLink'
 import { TypeTag } from '@/components/InitiativeCard'
 import { ProjectCard } from '@/components/ProjectCard'
-import { asMedia, getAllInitiatives, getInitiativeBySlug, getProjectsForInitiative } from '@/lib/payload'
+import { SisterInitiativePage } from '@/components/SisterInitiativePage'
+import { resolveHref, siteLinks } from '@/lib/links'
+import { asMedia, getAllInitiatives, getInitiativeBySlug, getProjectsForInitiative, getSiteSettings } from '@/lib/payload'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -28,6 +30,20 @@ export default async function InitiativePage({ params }: Props) {
   const initiative = await getInitiativeBySlug(slug)
   if (!initiative) notFound()
   const projects = await getProjectsForInitiative(initiative.id)
+
+  // Sister initiatives get a page in their own branding.
+  if (initiative.type === 'sister') {
+    const links = siteLinks(await getSiteSettings())
+    return (
+      <SisterInitiativePage
+        initiative={initiative}
+        projects={projects}
+        supportHref={resolveHref('/donate', links)}
+        appealHref={resolveHref(initiative.sister?.appeal?.buttonLink || '/contact', links)}
+      />
+    )
+  }
+
   const cover = asMedia(initiative.coverImage)
 
   return (
@@ -51,7 +67,7 @@ export default async function InitiativePage({ params }: Props) {
           <p className="mt-6 text-lg leading-8">{initiative.goal || initiative.summary}</p>
           {initiative.externalUrl ? (
             <CmsLink href={initiative.externalUrl} className="btn-outline mt-8">
-              {initiative.ctaLabel || `Visit ${initiative.title}`}
+              {initiative.externalLabel || `Visit ${initiative.title}`}
             </CmsLink>
           ) : null}
         </div>

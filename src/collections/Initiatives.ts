@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { isStaff, publishedOrStaff } from '../access'
+import { sisterPageField } from '../fields/sisterPage'
 import { slugField } from '../fields/slug'
 import { validateWebAddress } from '../fields/validate'
 import { revalidateCollection, revalidateOnDelete } from '../hooks/revalidate'
@@ -64,21 +65,33 @@ export const Initiatives: CollectionConfig = {
         {
           name: 'ctaLabel',
           type: 'text',
-          label: 'Button label',
-          admin: { description: 'e.g. “Explore our skills program”', width: '50%' },
+          label: 'Card button label',
+          admin: { description: 'Button on the home page card, e.g. “Explore our skills program”', width: '50%' },
         },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
         {
           name: 'externalUrl',
           type: 'text',
           validate: validateWebAddress,
-          label: 'External website',
+          label: 'Own website or social page',
           admin: {
-            description: 'Only for initiatives with their own site (e.g. A Lesson Away).',
+            description: 'Shown as a button on the initiative’s page (e.g. A Lesson Away’s LinkedIn).',
             width: '50%',
           },
         },
+        {
+          name: 'externalLabel',
+          type: 'text',
+          label: 'Its button label',
+          admin: { description: 'e.g. “Follow on LinkedIn”', width: '50%' },
+        },
       ],
     },
+    sisterPageField,
     {
       name: 'projects',
       type: 'join',

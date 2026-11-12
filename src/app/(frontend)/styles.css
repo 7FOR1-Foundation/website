@@ -69,7 +69,8 @@
 
 /* Rich text from the admin editor. */
 @utility prose-content {
-  & > * + * {
+  /* Payload's RichText wraps its blocks in a div, so space siblings at any depth. */
+  & :where(p, h2, h3, h4, ul, ol, blockquote, figure) + :where(p, h2, h3, h4, ul, ol, blockquote, figure) {
     margin-top: 1.25em;
   }
   & h2 {

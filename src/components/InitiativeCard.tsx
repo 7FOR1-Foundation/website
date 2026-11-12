@@ -22,9 +22,8 @@ export function TypeTag({ type }: { type: Initiative['type'] }) {
 
 export function InitiativeCard({ initiative }: { initiative: Initiative }) {
   const image = asMedia(initiative.coverImage)
-  const external = Boolean(initiative.externalUrl)
-  const href = initiative.externalUrl || `/initiatives/${initiative.slug}`
-  const label = initiative.ctaLabel || (external ? `Visit ${initiative.title}` : `Explore ${initiative.title}`)
+  const href = `/initiatives/${initiative.slug}`
+  const label = initiative.ctaLabel || `Explore ${initiative.title}`
 
   return (
     <article className="flex h-full flex-col">
@@ -47,7 +46,7 @@ export function InitiativeCard({ initiative }: { initiative: Initiative }) {
         <h3 className="mt-3 text-xl font-bold text-ink sm:text-2xl">{initiative.title}</h3>
         <p className="mt-2 leading-7">{initiative.summary}</p>
         <div className="mt-auto pt-6">
-          <CmsLink href={href} className={external ? 'btn-outline' : 'btn-primary'}>
+          <CmsLink href={href} className="btn-primary">
             {label}
           </CmsLink>
         </div>

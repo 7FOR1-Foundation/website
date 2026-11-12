@@ -4,65 +4,12 @@
  *
  *   pnpm seed
  */
-import fs from 'fs'
 import path from 'path'
-import type { Payload } from 'payload'
 import { getPayload } from 'payload'
 
 import config from '../payload.config'
-
-// A fresh object for every operation: Payload plugins write flags into the
-// request context (the storage plugin sets "skipCloudStorage" after an upload),
-// so sharing one object would stop every upload after the first.
-const ctx = () => ({ disableRevalidate: true })
-
-const FOUNDATION_FORM =
-  'https://docs.google.com/forms/d/e/1FAIpQLSegSSPllfUxddHCX7FFpwHiXc1ivawt1FwSMuY7xWS0FlWGJw/viewform'
-
-const upsertBySlug = async <T extends 'initiatives' | 'projects'>(
-  payload: Payload,
-  collection: T,
-  slug: string,
-  data: Record<string, unknown>,
-) => {
-  const { docs } = await payload.find({ collection, where: { slug: { equals: slug } }, limit: 1, draft: true })
-  const body = { ...data, slug, _status: 'published' } as never
-  if (docs[0]) return payload.update({ collection, id: docs[0].id, data: body, context: ctx() })
-  return payload.create({ collection, data: body, context: ctx() })
-}
-
-const uploadIfPresent = async (
-  payload: Payload,
-  file: string,
-  alt: string,
-  consentNote?: string,
-  focal?: { focalX: number; focalY: number },
-  watermark = true,
-) => {
-  if (!fs.existsSync(file)) return null
-  const filename = path.basename(file)
-  const { docs } = await payload.find({ collection: 'media', where: { filename: { equals: filename } }, limit: 1 })
-  if (docs[0]) {
-    // A different local file under the same name (e.g. a sharper logo) replaces the upload.
-    const replaced = docs[0].filesize !== fs.statSync(file).size
-    if (replaced || (consentNote && docs[0].consentNote !== consentNote)) {
-      return payload.update({
-        collection: 'media',
-        id: docs[0].id,
-        data: consentNote ? { consentNote } : {},
-        ...(replaced ? { filePath: file, overwriteExistingFiles: true } : {}),
-        context: ctx(),
-      })
-    }
-    return docs[0]
-  }
-  return payload.create({
-    collection: 'media',
-    data: { alt, consentNote, watermark, ...focal },
-    filePath: file,
-    context: ctx(),
-  })
-}
+import { seedALessonAway } from './aLessonAway'
+import { ctx, FOUNDATION_FORM, uploadIfPresent, upsertBySlug } from './helpers'
 
 const seed = async () => {
   const payload = await getPayload({ config })
@@ -203,24 +150,7 @@ const seed = async () => {
     sortOrder: 2,
   })
 
-  const lessonAwayPhoto = await uploadIfPresent(
-    payload,
-    path.resolve(process.cwd(), 'assets/images/a-lesson-away.jpg'),
-    'A facilitator speaking to children and adults seated at wooden desks in a classroom',
-    'Consent to publish confirmed by the foundation on 2026-11-11.',
-  )
-
-  await upsertBySlug(payload, 'initiatives', 'a-lesson-away', {
-    coverImage: lessonAwayPhoto?.id,
-    title: 'A Lesson Away Initiative',
-    type: 'sister',
-    summary:
-      'A separate initiative started by 7FOR1’s founder to help students affected by the crisis in the Northwest and Southwest return to school.',
-    ctaLabel: 'Visit A Lesson Away',
-    externalUrl: 'https://www.linkedin.com/company/lesson-away-initiative/',
-    featured: true,
-    sortOrder: 3,
-  })
+  await seedALessonAway(payload)
 
   await upsertBySlug(payload, 'projects', 'vifal-inclusive-teaching-training-2023', {
     title: 'Inclusive teaching training with VIFAL',

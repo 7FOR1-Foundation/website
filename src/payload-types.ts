@@ -182,13 +182,173 @@ export interface Initiative {
     [k: string]: unknown;
   } | null;
   /**
-   * e.g. “Explore our skills program”
+   * Button on the home page card, e.g. “Explore our skills program”
    */
   ctaLabel?: string | null;
   /**
-   * Only for initiatives with their own site (e.g. A Lesson Away).
+   * Shown as a button on the initiative’s page (e.g. A Lesson Away’s LinkedIn).
    */
   externalUrl?: string | null;
+  /**
+   * e.g. “Follow on LinkedIn”
+   */
+  externalLabel?: string | null;
+  /**
+   * This page uses the initiative’s own logo and colours. Leave a section empty to hide it.
+   */
+  sister?: {
+    /**
+     * Square logo. Untick “Add watermark” when uploading it.
+     */
+    logo?: (number | null) | Media;
+    /**
+     * e.g. “Bringing students back to school.”
+     */
+    tagline?: string | null;
+    /**
+     * Hero background (left side) and headings.
+     */
+    darkColour?: string | null;
+    /**
+     * Hero background (right side) and links.
+     */
+    mainColour?: string | null;
+    /**
+     * Highlights and buttons. Darkened automatically where white text needs it.
+     */
+    accentColour?: string | null;
+    /**
+     * Three or four headline numbers. Only use figures the records support.
+     */
+    stats?:
+      | {
+          /**
+           * e.g. 10
+           */
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * A recent achievement shown prominently below the key figures. Leave the title empty to hide it.
+     */
+    highlight?: {
+      /**
+       * e.g. 2026 milestone
+       */
+      label?: string | null;
+      title?: string | null;
+      text?: string | null;
+      /**
+       * Optional. Only with signed consent.
+       */
+      image?: (number | null) | Media;
+      /**
+       * Shown under the photo, e.g. “Shared with the consent of their guardians.”
+       */
+      imageCaption?: string | null;
+    };
+    /**
+     * A call to donate for the current school year. Leave the title empty to hide it.
+     */
+    appeal?: {
+      /**
+       * e.g. 2025/26 school year
+       */
+      label?: string | null;
+      title?: string | null;
+      text?: string | null;
+      figures?:
+        | {
+            /**
+             * e.g. 13
+             */
+            value: string;
+            label: string;
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * e.g. Donate or get in touch
+       */
+      buttonLabel?: string | null;
+      /**
+       * /contact opens the contact form set in Site settings.
+       */
+      buttonLink?: string | null;
+    };
+    /**
+     * A short line shown as a large quotation, e.g. a guiding belief of the initiative.
+     */
+    quote?: string | null;
+    provides?:
+      | {
+          item: string;
+          id?: string | null;
+        }[]
+      | null;
+    steps?:
+      | {
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Most recent last. Add a new entry at the end of each school year.
+     */
+    timeline?:
+      | {
+          /**
+           * e.g. 2024/25
+           */
+          period: string;
+          title: string;
+          text?: string | null;
+          /**
+           * Up to four. Only photos with signed consent from a parent or guardian.
+           */
+          photos?: (number | Media)[] | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * One school year’s income and spending. Totals are added up for you.
+     */
+    funding?: {
+      /**
+       * e.g. 2024/25
+       */
+      period?: string | null;
+      /**
+       * Total donations received
+       */
+      raised?: number | null;
+      currency?: string | null;
+      items?:
+        | {
+            label: string;
+            amount: number;
+            /**
+             * Optional, e.g. “10 children, two instalments”
+             */
+            detail?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * Optional, e.g. how fees are paid or what happens to any balance.
+       */
+      note?: string | null;
+    };
+    sponsorsText?: string | null;
+    nextText?: string | null;
+    /**
+     * Optional, e.g. an earlier name people may still know the initiative by.
+     */
+    nameNote?: string | null;
+  };
   projects?: {
     docs?: (number | Project)[];
     hasNextPage?: boolean;
@@ -588,6 +748,90 @@ export interface InitiativesSelect<T extends boolean = true> {
   body?: T;
   ctaLabel?: T;
   externalUrl?: T;
+  externalLabel?: T;
+  sister?:
+    | T
+    | {
+        logo?: T;
+        tagline?: T;
+        darkColour?: T;
+        mainColour?: T;
+        accentColour?: T;
+        stats?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        highlight?:
+          | T
+          | {
+              label?: T;
+              title?: T;
+              text?: T;
+              image?: T;
+              imageCaption?: T;
+            };
+        appeal?:
+          | T
+          | {
+              label?: T;
+              title?: T;
+              text?: T;
+              figures?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              buttonLabel?: T;
+              buttonLink?: T;
+            };
+        quote?: T;
+        provides?:
+          | T
+          | {
+              item?: T;
+              id?: T;
+            };
+        steps?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+        timeline?:
+          | T
+          | {
+              period?: T;
+              title?: T;
+              text?: T;
+              photos?: T;
+              id?: T;
+            };
+        funding?:
+          | T
+          | {
+              period?: T;
+              raised?: T;
+              currency?: T;
+              items?:
+                | T
+                | {
+                    label?: T;
+                    amount?: T;
+                    detail?: T;
+                    id?: T;
+                  };
+              note?: T;
+            };
+        sponsorsText?: T;
+        nextText?: T;
+        nameNote?: T;
+      };
   projects?: T;
   featured?: T;
   sortOrder?: T;

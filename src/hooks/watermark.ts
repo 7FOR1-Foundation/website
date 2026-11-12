@@ -19,8 +19,14 @@ export const watermarkUpload: CollectionBeforeOperationHook = async ({ args, ope
   if (operation !== 'create' && operation !== 'update') return args
   const file = req.file
   if (!file?.data || !WATERMARKABLE.has(file.mimetype)) return args
-  const data = (args as { data?: { watermark?: boolean } }).data
+  const { data, id } = args as { data?: { watermark?: boolean }; id?: number | string }
   if (data?.watermark === false) return args
+  // Replacing the file of an existing image without resending the checkbox:
+  // keep that image's own setting (logos stay unmarked).
+  if (operation === 'update' && data?.watermark === undefined && id !== undefined) {
+    const existing = await req.payload.findByID({ collection: 'media', id, depth: 0, req }).catch(() => null)
+    if (existing?.watermark === false) return args
+  }
 
   // Apply the camera's orientation first, so the mark lands in the visible corner.
   const photo = sharp(file.data, { failOn: 'none' }).rotate()
