@@ -26,7 +26,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section aria-labelledby="hero-title" className="on-dark relative isolate overflow-hidden bg-brand-900">
+      <section aria-labelledby="hero-title" className="on-dark relative isolate overflow-hidden bg-brand-600">
         {heroImage?.url ? (
           <>
             <Image
@@ -42,7 +42,7 @@ export default async function HomePage() {
           </>
         ) : (
           // No photo yet: a brand background with the logo's ring of figures.
-          <div className="absolute inset-0 -z-10 bg-gradient-to-br from-brand-900 via-brand-900 to-brand-700" aria-hidden="true">
+          <div className="absolute inset-0 -z-10 bg-gradient-to-br from-brand-600 via-brand-600 to-brand-700" aria-hidden="true">
             <HeroPattern className="absolute -right-24 -bottom-24 w-[24rem] text-white/[0.07] sm:-right-16 sm:w-[32rem] lg:top-1/2 lg:-right-20 lg:bottom-auto lg:w-[34rem] lg:-translate-y-[45%] lg:text-white/[0.12] xl:right-0 xl:w-[38rem] 2xl:right-[6%] 2xl:w-[42rem]" />
             <HeroPattern className="absolute -top-20 -left-20 hidden w-64 text-white/[0.04] lg:block" />
           </div>
@@ -130,7 +130,7 @@ export default async function HomePage() {
               {impact?.heading || 'Our Impact'}
             </h2>
             {/* Centred row that works for any number of figures (the design had four; there are now three). */}
-            <dl className="mx-auto mt-10 flex max-w-5xl flex-wrap justify-center gap-x-12 gap-y-10 text-center lg:gap-x-24">
+            <dl className="mx-auto mt-10 flex max-w-6xl flex-wrap justify-center gap-x-12 gap-y-10 text-center lg:gap-x-20">
               {impact.stats?.map((stat) => (
                 <div key={stat.id ?? stat.label} className="flex w-full max-w-60 flex-col-reverse justify-end gap-2 sm:w-52">
                   <dt className="text-base font-semibold">{stat.label}</dt>

@@ -7,9 +7,9 @@
   --color-brand-50: #eaf5ff; /* page background */
   --color-brand-100: #d6ebfa; /* tags, soft panels */
   --color-brand-500: #1a87b7; /* icons, accents */
-  --color-brand-600: #136d94; /* buttons, links, blue bands (white text passes WCAG AA) */
+  --color-brand-600: #136d94; /* theme blue: buttons, links, top bar, hero, Our Impact, footer (white text passes WCAG AA) */
   --color-brand-700: #0f5877; /* hover */
-  --color-brand-900: #05374c; /* top bar */
+  --color-brand-900: #05374c; /* darkest shade (currently unused) */
   --color-ink: #282828; /* headings */
   --color-body: #525252; /* body text */
   --color-night: #1e1e1e; /* newsletter band */

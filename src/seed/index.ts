@@ -11,7 +11,10 @@ import { getPayload } from 'payload'
 
 import config from '../payload.config'
 
-const ctx = { disableRevalidate: true }
+// A fresh object for every operation: Payload plugins write flags into the
+// request context (the storage plugin sets "skipCloudStorage" after an upload),
+// so sharing one object would stop every upload after the first.
+const ctx = () => ({ disableRevalidate: true })
 
 const FOUNDATION_FORM =
   'https://docs.google.com/forms/d/e/1FAIpQLSegSSPllfUxddHCX7FFpwHiXc1ivawt1FwSMuY7xWS0FlWGJw/viewform'
@@ -24,8 +27,8 @@ const upsertBySlug = async <T extends 'initiatives' | 'projects'>(
 ) => {
   const { docs } = await payload.find({ collection, where: { slug: { equals: slug } }, limit: 1, draft: true })
   const body = { ...data, slug, _status: 'published' } as never
-  if (docs[0]) return payload.update({ collection, id: docs[0].id, data: body, context: ctx })
-  return payload.create({ collection, data: body, context: ctx })
+  if (docs[0]) return payload.update({ collection, id: docs[0].id, data: body, context: ctx() })
+  return payload.create({ collection, data: body, context: ctx() })
 }
 
 const uploadIfPresent = async (
@@ -48,7 +51,7 @@ const uploadIfPresent = async (
         id: docs[0].id,
         data: consentNote ? { consentNote } : {},
         ...(replaced ? { filePath: file, overwriteExistingFiles: true } : {}),
-        context: ctx,
+        context: ctx(),
       })
     }
     return docs[0]
@@ -57,7 +60,7 @@ const uploadIfPresent = async (
     collection: 'media',
     data: { alt, consentNote, watermark, ...focal },
     filePath: file,
-    context: ctx,
+    context: ctx(),
   })
 }
 
@@ -85,7 +88,7 @@ const seed = async () => {
 
   await payload.updateGlobal({
     slug: 'site-settings',
-    context: ctx,
+    context: ctx(),
     data: {
       email: 'info7for1@gmail.com',
       tagline: 'Action Over Sympathy',
@@ -119,7 +122,7 @@ const seed = async () => {
 
   await payload.updateGlobal({
     slug: 'home-page',
-    context: ctx,
+    context: ctx(),
     data: {
       hero: {
         title: 'Training Africans with Disabilities in Digital Skills',
@@ -141,6 +144,7 @@ const seed = async () => {
           { value: '18+', label: 'blind learners trained' },
           { value: '12+', label: 'young people trained in disability awareness' },
           { value: '3', label: 'initiatives launched' },
+          { value: '$1,000+', label: 'raised for A Lesson Away' },
         ],
       },
       disability: {
