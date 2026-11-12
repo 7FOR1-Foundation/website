@@ -100,6 +100,8 @@ Use made-up test accounts only. Delete them when you finish testing.
 | A9 | Choose the initiative and publish | The project appears on the test initiative's page. |
 | A10 | Blog posts → publish a test post | An "Our Blogs" section appears on the homepage with the post. |
 | A11 | Media → upload an image without alt text | Saving is refused: alt text is required. |
+| A16 | Upload a large photo (e.g. 4000 px wide, under 4.5 MB) with **Add watermark** ticked | The saved image is at most 1600 px wide and has "© 7FOR1 Foundation" in the bottom-right corner, in every size. |
+| A17 | Upload a logo with **Add watermark** unticked | No watermark is added. |
 | A12 | As an admin, create a second account with role **Editor**, then log in as that editor | The editor can edit content but cannot see Subscribers or other users' accounts. |
 | A13 | Delete the test initiative, project, post, subscriber and accounts | They disappear from the site, and their old addresses show "page not found". |
 | A14 | In Site settings, enter `facebook.com/page` (no https://) as the Facebook link, or `donate-page` as the Donate link, and save | Saving is refused with a message asking for a full web address or a page starting with "/". |
@@ -127,6 +129,7 @@ Use made-up test accounts only. Delete them when you finish testing.
 | X4 | Check the heading structure | One main heading (the hero headline), then a heading for each section. |
 | X5 | Check that external links say so | Links that open a new tab are announced as "(opens in a new tab)". |
 | X6 | Zoom the browser to 200% | Everything is still readable and usable, with no text cut off. |
+| X8 | Right-click a photo, and try dragging it to the desktop | No "Save image as" menu and no drag. Right-clicking links, text and the logo still works. On an iPhone, long-pressing a photo doesn't offer "Save to Photos". |
 | X7 | Check text contrast | Body text, button labels and text on the blue bands are easy to read (at least WCAG AA). |
 
 ## 9. Layout on different screens

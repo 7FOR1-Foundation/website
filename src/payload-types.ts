@@ -218,6 +218,10 @@ export interface Media {
    */
   alt: string;
   /**
+   * Stamps “© 7FOR1 Foundation” on the photo when it is uploaded. Untick only for logos and graphics. Applies to new uploads.
+   */
+  watermark?: boolean | null;
+  /**
    * If identifiable participants appear in this photo, note who gave consent and when.
    */
   consentNote?: string | null;
@@ -633,6 +637,7 @@ export interface PostsSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  watermark?: T;
   consentNote?: T;
   updatedAt?: T;
   createdAt?: T;

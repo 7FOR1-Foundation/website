@@ -34,6 +34,7 @@ const uploadIfPresent = async (
   alt: string,
   consentNote?: string,
   focal?: { focalX: number; focalY: number },
+  watermark = true,
 ) => {
   if (!fs.existsSync(file)) return null
   const filename = path.basename(file)
@@ -52,18 +53,34 @@ const uploadIfPresent = async (
     }
     return docs[0]
   }
-  return payload.create({ collection: 'media', data: { alt, consentNote, ...focal }, filePath: file, context: ctx })
+  return payload.create({
+    collection: 'media',
+    data: { alt, consentNote, watermark, ...focal },
+    filePath: file,
+    context: ctx,
+  })
 }
 
 const seed = async () => {
   const payload = await getPayload({ config })
   payload.logger.info('Seeding content…')
 
-  const logo = await uploadIfPresent(payload, path.resolve(process.cwd(), 'assets/images/logo-blue.png'), '7FOR1 Foundation')
+  // Logos: no watermark.
+  const logo = await uploadIfPresent(
+    payload,
+    path.resolve(process.cwd(), 'assets/images/logo-blue.png'),
+    '7FOR1 Foundation',
+    undefined,
+    undefined,
+    false,
+  )
   const logoWhite = await uploadIfPresent(
     payload,
     path.resolve(process.cwd(), 'assets/images/logo-white.png'),
     '7FOR1 Foundation',
+    undefined,
+    undefined,
+    false,
   )
 
   await payload.updateGlobal({

@@ -39,11 +39,14 @@ export default buildConfig({
   plugins: [
     // Uploads go to Vercel Blob when a token is present (production and
     // previews). Locally, without a token, files are stored in ./media.
+    // Uploads pass through the server (no direct browser-to-Blob uploads) so
+    // every photo gets the watermark and size cap before it is stored. Vercel
+    // limits server uploads to about 4.5 MB per file.
     vercelBlobStorage({
       enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
       collections: { media: true },
       token: process.env.BLOB_READ_WRITE_TOKEN,
-      clientUploads: true,
+      clientUploads: false,
     }),
   ],
 })

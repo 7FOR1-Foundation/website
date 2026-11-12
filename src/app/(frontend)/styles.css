@@ -28,6 +28,12 @@
     outline-offset: 3px;
     border-radius: 4px;
   }
+  /* Photos can't be dragged out of the page or long-pressed to save on iPhone (see ImageGuard). */
+  main img {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
   /* On blue and dark backgrounds the brand-blue ring is too faint (WCAG 2.4.11), so use white. */
   .on-dark :focus-visible {
     outline-color: #fff;

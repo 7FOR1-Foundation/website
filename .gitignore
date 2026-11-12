@@ -44,3 +44,6 @@ assets/images/
 
 # Local Claude Code / editor launch settings
 .claude/
+
+#docs
+docs/

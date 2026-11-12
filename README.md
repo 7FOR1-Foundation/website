@@ -59,6 +59,10 @@ pnpm dev
 
 Without `BLOB_READ_WRITE_TOKEN`, uploaded images are saved to the local `media/` folder (not committed).
 
+### Photos
+
+Every uploaded photo is scaled down to fit within 1600 × 1600 px and stamped with "© 7FOR1 Foundation" in the bottom-right corner before it is stored, so full-resolution originals never go online. Untick **Add watermark** in the admin for logos and graphics. On Vercel, a single upload can be at most about 4.5 MB; resize larger photos before uploading. Right-click and drag are switched off on photos as a light deterrent; it doesn't stop screenshots.
+
 ### Changing the content model
 
 After editing a collection or global in `src/collections` or `src/globals`:
