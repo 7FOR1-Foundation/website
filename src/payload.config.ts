@@ -44,6 +44,9 @@ export default buildConfig({
     // limits server uploads to about 4.5 MB per file.
     vercelBlobStorage({
       enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      // Keep the plugin's columns in the database even when it's off (locally),
+      // so migrations made on a laptop match production.
+      alwaysInsertFields: true,
       collections: { media: true },
       token: process.env.BLOB_READ_WRITE_TOKEN,
       clientUploads: false,

@@ -225,6 +225,8 @@ export interface Media {
    * If identifiable participants appear in this photo, note who gave consent and when.
    */
   consentNote?: string | null;
+  prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -639,6 +641,8 @@ export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   watermark?: T;
   consentNote?: T;
+  prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
