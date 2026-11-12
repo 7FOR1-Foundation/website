@@ -13,7 +13,7 @@ export function Header({ settings }: { settings: SiteSetting }) {
   const links = siteLinks(settings)
   return (
     <header className="relative z-30">
-      <div className="on-dark bg-brand-600 text-white">
+      <div className="on-dark bg-night text-white">
         <div className="container-page flex min-h-12 flex-wrap items-center justify-end gap-x-8 gap-y-1 py-2 text-sm sm:min-h-16 sm:text-base">
           {settings.phone ? (
             <a href={`tel:${settings.phone.replace(/\s+/g, '')}`} className="inline-flex items-center gap-2 hover:underline">
