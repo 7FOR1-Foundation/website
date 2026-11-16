@@ -5,6 +5,7 @@ import { CmsLink } from '@/components/CmsLink'
 import { HeroPattern } from '@/components/HeroPattern'
 import { BinocularsIcon, CheckIcon, MapPinIcon, TargetIcon } from '@/components/icons'
 import { InitiativeCard } from '@/components/InitiativeCard'
+import { isValueIcon, ValueIcon, valueIconColour } from '@/components/ValueIcon'
 import { siteLinks } from '@/lib/links'
 import { asMedia, getAboutPage, getFeaturedInitiatives, getHomePage, getSiteSettings } from '@/lib/payload'
 
@@ -118,15 +119,26 @@ export default async function AboutUsPage() {
               {values.heading || 'Our values'}
             </h2>
             <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {values.items.map((value, index) => (
-                <li key={value.id ?? value.title} className="rounded-xl border-t-4 border-brand-500 bg-brand-50 p-6 sm:p-8">
-                  <span className="text-sm font-bold tracking-[0.15em] text-brand-600" aria-hidden="true">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="mt-2 text-xl font-extrabold text-ink">{value.title}</h3>
-                  <p className="mt-2 leading-7">{value.text}</p>
-                </li>
-              ))}
+              {values.items.map((value, index) => {
+                const icon = isValueIcon(value.icon) ? value.icon : null
+                return (
+                  <li
+                    key={value.id ?? value.title}
+                    className="rounded-xl border-t-4 border-brand-500 bg-brand-50 p-6 sm:p-8"
+                    style={icon ? { borderTopColor: valueIconColour(icon) } : undefined}
+                  >
+                    {icon ? (
+                      <ValueIcon name={icon} />
+                    ) : (
+                      <span className="text-sm font-bold tracking-[0.15em] text-brand-600" aria-hidden="true">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                    )}
+                    <h3 className={`${icon ? 'mt-4' : 'mt-2'} text-xl font-extrabold text-ink`}>{value.title}</h3>
+                    <p className="mt-2 leading-7">{value.text}</p>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </section>

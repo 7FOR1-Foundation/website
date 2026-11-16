@@ -1150,6 +1150,23 @@ export interface AboutPage {
     items?:
       | {
           title: string;
+          /**
+           * Each icon has its own colour. Without one, the value is numbered.
+           */
+          icon?:
+            | (
+                | 'action'
+                | 'equality'
+                | 'accessibility'
+                | 'growth'
+                | 'accountability'
+                | 'partnership'
+                | 'heart'
+                | 'idea'
+                | 'globe'
+                | 'learning'
+              )
+            | null;
           text: string;
           id?: string | null;
         }[]
@@ -1364,6 +1381,7 @@ export interface AboutPageSelect<T extends boolean = true> {
           | T
           | {
               title?: T;
+              icon?: T;
               text?: T;
               id?: T;
             };

@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { anyone, isStaff } from '../access'
 import { validateWebAddress } from '../fields/validate'
+import { valueIconOptions } from '../fields/valueIcons'
 import { revalidateGlobal } from '../hooks/revalidate'
 
 /**
@@ -62,7 +63,18 @@ export const AboutPage: GlobalConfig = {
               labels: { singular: 'Value', plural: 'Values' },
               admin: { description: 'Four to six works best.' },
               fields: [
-                { name: 'title', type: 'text', required: true },
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'title', type: 'text', required: true, admin: { width: '60%' } },
+                    {
+                      name: 'icon',
+                      type: 'select',
+                      options: valueIconOptions,
+                      admin: { width: '40%', description: 'Each icon has its own colour. Without one, the value is numbered.' },
+                    },
+                  ],
+                },
                 { name: 'text', type: 'textarea', required: true },
               ],
             },

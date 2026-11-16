@@ -5,6 +5,7 @@ import * as migration_20261112_092213_media_watermark from './20261112_092213_me
 import * as migration_20261112_105108_blob_storage_fields from './20261112_105108_blob_storage_fields';
 import * as migration_20261112_151706_sister_initiative_page from './20261112_151706_sister_initiative_page';
 import * as migration_20261116_130950_about_page from './20261116_130950_about_page';
+import * as migration_20261116_133828_value_icons from './20261116_133828_value_icons';
 
 export const migrations = [
   {
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20261116_130950_about_page.up,
     down: migration_20261116_130950_about_page.down,
-    name: '20261116_130950_about_page'
+    name: '20261116_130950_about_page',
+  },
+  {
+    up: migration_20261116_133828_value_icons.up,
+    down: migration_20261116_133828_value_icons.down,
+    name: '20261116_133828_value_icons'
   },
 ];

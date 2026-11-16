@@ -48,26 +48,32 @@ export const seedAboutPage = async (payload: Payload, { force = false } = {}) =>
         items: [
           {
             title: 'Action over sympathy',
+            icon: 'action',
             text: 'We open doors to skills, work and independence. We don’t offer pity.',
           },
           {
             title: 'Dignity and equality',
+            icon: 'equality',
             text: 'Every person has equal rights, whatever their disability, race, sex, religion or language.',
           },
           {
             title: 'Accessibility first',
+            icon: 'accessibility',
             text: 'Our training, materials and events are designed for every kind of disability from the start, not adapted as an afterthought.',
           },
           {
             title: 'Inclusion starts early',
+            icon: 'growth',
             text: 'We teach children that inclusion is normal, so the next generation grows up without the stereotypes.',
           },
           {
             title: 'Accountability',
+            icon: 'accountability',
             text: 'We report on what we raise and spend, and we measure our results so we keep improving.',
           },
           {
             title: 'Partnership',
+            icon: 'partnership',
             text: 'We work with families, schools, businesses and tech companies, because inclusion needs everyone.',
           },
         ],
