@@ -24,7 +24,7 @@ export const HomePage: GlobalConfig = {
   label: 'Home page',
   admin: { group: 'Content' },
   access: { read: anyone, update: isStaff },
-  hooks: { afterChange: [revalidateGlobal(['/'])] },
+  hooks: { afterChange: [revalidateGlobal(['/', '/about'])] },
   fields: [
     {
       type: 'tabs',

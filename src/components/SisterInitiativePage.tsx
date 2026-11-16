@@ -91,7 +91,7 @@ export function SisterInitiativePage({ initiative, projects, supportHref, appeal
             {logo?.url ? (
               <Image src={logo.url} alt="" width={96} height={96} className="mt-8 size-20 rounded-2xl sm:size-24 lg:hidden" />
             ) : null}
-            <p className="mt-8 text-sm font-bold tracking-[0.15em] uppercase">A sister initiative of the 7FOR1 Foundation</p>
+            <p className="mt-8 text-sm font-bold tracking-[0.15em] uppercase">A sister initiative of 7FOR1 (Seven For One Association)</p>
             <h1 className="mt-3 font-serif text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">{initiative.title}</h1>
             {s.tagline ? (
               <p className="mt-5 inline-block bg-(--sis-accent) px-4 py-2 text-xl font-bold sm:text-2xl">{s.tagline}</p>

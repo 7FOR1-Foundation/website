@@ -29,7 +29,7 @@ export function Header({ settings }: { settings: SiteSetting }) {
       </div>
       <div className="bg-white">
         <div className="container-page flex min-h-20 items-center justify-between gap-6">
-          <Link href="/" className="shrink-0 py-3" aria-label="7FOR1 Foundation home">
+          <Link href="/" className="shrink-0 py-3" aria-label="7FOR1 home">
             <Logo image={settings.logo} variant="colour" className="h-12 w-auto sm:h-14" />
           </Link>
           <NavLinks links={links} />

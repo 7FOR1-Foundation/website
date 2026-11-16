@@ -31,7 +31,7 @@ export const Media: CollectionConfig = {
       admin: {
         position: 'sidebar',
         description:
-          'Stamps “© 7FOR1 Foundation” on the photo when it is uploaded. Untick only for logos and graphics. Applies to new uploads.',
+          'Stamps “© 7FOR1” on the photo when it is uploaded. Untick only for logos and graphics. Applies to new uploads.',
       },
     },
     {

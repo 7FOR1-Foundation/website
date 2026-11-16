@@ -5,7 +5,7 @@ import { getLatestPosts } from '@/lib/payload'
 
 export const metadata: Metadata = {
   title: 'Blog',
-  description: 'News and stories from the 7FOR1 Foundation.',
+  description: 'News and stories from 7FOR1 (Seven For One Association).',
 }
 
 export default async function BlogPage() {

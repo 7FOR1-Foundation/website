@@ -103,10 +103,12 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'home-page': HomePage;
+    'about-page': AboutPage;
     'site-settings': SiteSetting;
   };
   globalsSelect: {
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
+    'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
@@ -378,7 +380,7 @@ export interface Media {
    */
   alt: string;
   /**
-   * Stamps “© 7FOR1 Foundation” on the photo when it is uploaded. Untick only for logos and graphics. Applies to new uploads.
+   * Stamps “© 7FOR1” on the photo when it is uploaded. Untick only for logos and graphics. Applies to new uploads.
    */
   watermark?: boolean | null;
   /**
@@ -1114,6 +1116,119 @@ export interface HomePage {
   createdAt?: string | null;
 }
 /**
+ * The mission and vision on this page come from Home page → Who we are. Leave a section empty to hide it.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page".
+ */
+export interface AboutPage {
+  id: number;
+  intro?: {
+    title?: string | null;
+    /**
+     * One or two sentences at the top of the page.
+     */
+    text?: string | null;
+  };
+  story?: {
+    heading?: string | null;
+    /**
+     * Leave an empty line between paragraphs.
+     */
+    text?: string | null;
+    /**
+     * Optional photo beside the story.
+     */
+    image?: (number | null) | Media;
+    imageCaption?: string | null;
+  };
+  values?: {
+    heading?: string | null;
+    /**
+     * Four to six works best.
+     */
+    items?:
+      | {
+          title: string;
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  board?: {
+    heading?: string | null;
+    intro?: string | null;
+    members?:
+      | {
+          name: string;
+          /**
+           * Use the constitution’s titles: President / CEO, Secretary-General, Treasurer, Financial Secretary, Programs Officer, Technical Adviser.
+           */
+          role: string;
+          /**
+           * Optional. One or two sentences.
+           */
+          bio?: string | null;
+          /**
+           * Optional. Their LinkedIn profile address.
+           */
+          linkedin?: string | null;
+          /**
+           * Only after this person has agreed to be listed.
+           */
+          show?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  objectives?: {
+    heading?: string | null;
+    intro?: string | null;
+    /**
+     * Short, plain-language versions of the objectives in the constitution.
+     */
+    items?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  location?: {
+    heading?: string | null;
+    /**
+     * City and region only. Don’t publish a home address.
+     */
+    text?: string | null;
+  };
+  volunteering?: {
+    heading?: string | null;
+    intro?: string | null;
+    /**
+     * Only list the help you currently need.
+     */
+    roles?:
+      | {
+          title: string;
+          /**
+           * One or two sentences on what it involves.
+           */
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  closing?: {
+    heading?: string | null;
+    /**
+     * Shown above the Volunteer, Donate and Contact buttons (their links are set in Site settings).
+     */
+    text?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".
  */
@@ -1217,6 +1332,94 @@ export interface HomePageSelect<T extends boolean = true> {
         blogHeading?: T;
         newsletterHeading?: T;
         newsletterText?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page_select".
+ */
+export interface AboutPageSelect<T extends boolean = true> {
+  intro?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+      };
+  story?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+        image?: T;
+        imageCaption?: T;
+      };
+  values?:
+    | T
+    | {
+        heading?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  board?:
+    | T
+    | {
+        heading?: T;
+        intro?: T;
+        members?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+              bio?: T;
+              linkedin?: T;
+              show?: T;
+              id?: T;
+            };
+      };
+  objectives?:
+    | T
+    | {
+        heading?: T;
+        intro?: T;
+        items?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+      };
+  location?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+      };
+  volunteering?:
+    | T
+    | {
+        heading?: T;
+        intro?: T;
+        roles?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  closing?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -1,6 +1,6 @@
-# 7FOR1 Foundation Website
+# 7FOR1 Website
 
-The official website of the **7FOR1 (Seven For One) Foundation**, which trains Africans with disabilities in digital skills, builds accessible learning, and advocates for lasting inclusion.
+The official website of **Seven For One Association (7FOR1)**, which trains Africans with disabilities in digital skills, builds accessible learning, and advocates for lasting inclusion.
 
 > **Status:** MVP in development.
 
@@ -61,7 +61,7 @@ Without `BLOB_READ_WRITE_TOKEN`, uploaded images are saved to the local `media/`
 
 ### Photos
 
-Every uploaded photo is scaled down to fit within 1600 × 1600 px and stamped with "© 7FOR1 Foundation" in the bottom-right corner before it is stored, so full-resolution originals never go online. Untick **Add watermark** in the admin for logos and graphics. On Vercel, a single upload can be at most about 4.5 MB; resize larger photos before uploading. Right-click and drag are switched off on photos as a light deterrent; it doesn't stop screenshots.
+Every uploaded photo is scaled down to fit within 1600 × 1600 px and stamped with "© 7FOR1" in the bottom-right corner before it is stored, so full-resolution originals never go online. Untick **Add watermark** in the admin for logos and graphics. On Vercel, a single upload can be at most about 4.5 MB; resize larger photos before uploading. Right-click and drag are switched off on photos as a light deterrent; it doesn't stop screenshots.
 
 ### Changing the content model
 
@@ -118,8 +118,8 @@ Pages are built ahead of time and refreshed automatically when content is saved 
 
 ## Content and brand assets
 
-The 7FOR1 name, logo, photographs and written content belong to the 7FOR1 Foundation and are not covered by any code license in this repository. Photos of program participants must not be published without their consent.
+The 7FOR1 name, logo, photographs and written content belong to Seven For One Association (7FOR1) and are not covered by any code license in this repository. Photos of program participants must not be published without their consent.
 
 ## Contact
 
-7FOR1 Foundation: info7for1@gmail.com
+Seven For One Association (7FOR1): info7for1@gmail.com

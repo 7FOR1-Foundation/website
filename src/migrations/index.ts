@@ -4,6 +4,7 @@ import * as migration_20261111_181939_form_links from './20261111_181939_form_li
 import * as migration_20261112_092213_media_watermark from './20261112_092213_media_watermark';
 import * as migration_20261112_105108_blob_storage_fields from './20261112_105108_blob_storage_fields';
 import * as migration_20261112_151706_sister_initiative_page from './20261112_151706_sister_initiative_page';
+import * as migration_20261116_130950_about_page from './20261116_130950_about_page';
 
 export const migrations = [
   {
@@ -34,6 +35,11 @@ export const migrations = [
   {
     up: migration_20261112_151706_sister_initiative_page.up,
     down: migration_20261112_151706_sister_initiative_page.down,
-    name: '20261112_151706_sister_initiative_page'
+    name: '20261112_151706_sister_initiative_page',
+  },
+  {
+    up: migration_20261116_130950_about_page.up,
+    down: migration_20261116_130950_about_page.down,
+    name: '20261116_130950_about_page'
   },
 ];

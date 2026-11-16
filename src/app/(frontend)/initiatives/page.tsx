@@ -5,7 +5,7 @@ import { getAllInitiatives } from '@/lib/payload'
 
 export const metadata: Metadata = {
   title: 'Our Initiatives',
-  description: 'The long-running programs of the 7FOR1 Foundation and the projects carried out for each.',
+  description: 'The long-running programs of 7FOR1 (Seven For One Association) and the projects carried out for each.',
 }
 
 export default async function InitiativesPage() {

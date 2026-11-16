@@ -3,14 +3,14 @@ import sharp from 'sharp'
 
 import { WATERMARK_PNG } from './watermark-image'
 
-/** Watermark width as a share of the photo's width, and its distance from the edges. */
-const MARK_SHARE = 0.28
+/** Watermark width as a share of the photo’s width (letters the same size as the earlier, longer mark), and its distance from the edges. */
+const MARK_SHARE = 0.13
 const MARGIN_SHARE = 0.02
 
 const WATERMARKABLE = new Set(['image/jpeg', 'image/png', 'image/webp'])
 
 /**
- * Stamps "© 7FOR1 Foundation" in the bottom-right corner of every uploaded
+ * Stamps "© 7FOR1" in the bottom-right corner of every uploaded
  * photo, before Payload stores it and makes its smaller versions, so the
  * original file and every size carry the mark. Logos and other images can opt
  * out with the "Add watermark" checkbox.
@@ -32,7 +32,7 @@ export const watermarkUpload: CollectionBeforeOperationHook = async ({ args, ope
   const photo = sharp(file.data, { failOn: 'none' }).rotate()
   const { data: upright, info } = await photo.toBuffer({ resolveWithObject: true })
 
-  const markWidth = Math.max(80, Math.round(info.width * MARK_SHARE))
+  const markWidth = Math.max(40, Math.round(info.width * MARK_SHARE))
   const mark = await sharp(WATERMARK_PNG).resize({ width: markWidth }).toBuffer({ resolveWithObject: true })
   const margin = Math.round(info.width * MARGIN_SHARE)
 

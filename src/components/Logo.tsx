@@ -11,7 +11,7 @@ export function Logo({ image, variant, className }: Props) {
     return (
       <Image
         src={media.url}
-        alt="7FOR1 Foundation"
+        alt="7FOR1"
         width={media.width ?? 368}
         height={media.height ?? 110}
         className={className}

@@ -8,6 +8,7 @@ import path from 'path'
 import { getPayload } from 'payload'
 
 import config from '../payload.config'
+import { seedAboutPage } from './aboutPage'
 import { seedALessonAway } from './aLessonAway'
 import { ctx, FOUNDATION_FORM, uploadIfPresent, upsertBySlug } from './helpers'
 
@@ -19,7 +20,7 @@ const seed = async () => {
   const logo = await uploadIfPresent(
     payload,
     path.resolve(process.cwd(), 'assets/images/logo-blue.png'),
-    '7FOR1 Foundation',
+    '7FOR1 (Seven For One Association)',
     undefined,
     undefined,
     false,
@@ -27,7 +28,7 @@ const seed = async () => {
   const logoWhite = await uploadIfPresent(
     payload,
     path.resolve(process.cwd(), 'assets/images/logo-white.png'),
-    '7FOR1 Foundation',
+    '7FOR1 (Seven For One Association)',
     undefined,
     undefined,
     false,
@@ -151,6 +152,7 @@ const seed = async () => {
   })
 
   await seedALessonAway(payload)
+  await seedAboutPage(payload)
 
   await upsertBySlug(payload, 'projects', 'vifal-inclusive-teaching-training-2023', {
     title: 'Inclusive teaching training with VIFAL',

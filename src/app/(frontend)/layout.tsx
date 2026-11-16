@@ -25,12 +25,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: '7FOR1 Foundation · Action Over Sympathy',
-    template: '%s · 7FOR1 Foundation',
+    default: '7FOR1 · Action Over Sympathy',
+    template: '%s · 7FOR1',
   },
   description:
-    'The 7FOR1 (Seven For One) Foundation trains Africans with disabilities in digital skills, builds accessible learning and advocates for lasting inclusion.',
-  openGraph: { siteName: '7FOR1 Foundation', type: 'website' },
+    'Seven For One Association (7FOR1) trains Africans with disabilities in digital skills, builds accessible learning and advocates for lasting inclusion.',
+  openGraph: { siteName: '7FOR1 (Seven For One Association)', type: 'website' },
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

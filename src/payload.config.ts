@@ -12,6 +12,7 @@ import { Posts } from './collections/Posts'
 import { Projects } from './collections/Projects'
 import { Subscribers } from './collections/Subscribers'
 import { Users } from './collections/Users'
+import { AboutPage } from './globals/AboutPage'
 import { HomePage } from './globals/HomePage'
 import { SiteSettings } from './globals/SiteSettings'
 
@@ -27,7 +28,7 @@ export default buildConfig({
     meta: { titleSuffix: ' · 7FOR1 Admin' },
   },
   collections: [Initiatives, Projects, Posts, Media, Subscribers, Users],
-  globals: [HomePage, SiteSettings],
+  globals: [HomePage, AboutPage, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },

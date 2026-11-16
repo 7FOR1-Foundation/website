@@ -6,7 +6,7 @@ import { slugField } from '../fields/slug'
 import { validateWebAddress } from '../fields/validate'
 import { revalidateCollection, revalidateOnDelete } from '../hooks/revalidate'
 
-const paths = (doc: Record<string, unknown>) => ['/', '/initiatives', `/initiatives/${doc.slug}`]
+const paths = (doc: Record<string, unknown>) => ['/', '/about', '/initiatives', `/initiatives/${doc.slug}`]
 
 export const Initiatives: CollectionConfig = {
   slug: 'initiatives',

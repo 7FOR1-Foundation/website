@@ -1,7 +1,7 @@
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
-import type { HomePage, Initiative, Media, Post, Project, SiteSetting } from '@/payload-types'
+import type { AboutPage, HomePage, Initiative, Media, Post, Project, SiteSetting } from '@/payload-types'
 
 export const payloadClient = () => getPayload({ config })
 
@@ -13,6 +13,11 @@ export const getSiteSettings = async (): Promise<SiteSetting> => {
 export const getHomePage = async (): Promise<HomePage> => {
   const payload = await payloadClient()
   return payload.findGlobal({ slug: 'home-page', depth: 1 })
+}
+
+export const getAboutPage = async (): Promise<AboutPage> => {
+  const payload = await payloadClient()
+  return payload.findGlobal({ slug: 'about-page', depth: 1 })
 }
 
 export const getFeaturedInitiatives = async (): Promise<Initiative[]> => {

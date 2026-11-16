@@ -166,7 +166,7 @@ export const seedALessonAway = async (payload: Payload) => {
       nextText:
         'As more of our students finish primary school, we are extending our support into secondary school, so that finishing primary is a beginning rather than the end of their education.',
       nameNote:
-        'Some of our early sponsors and partners know this initiative through Learn & Bridge Foundation, the name we first planned for our foundation. We changed course as our goals grew, and because other organisations already had similar names. A Lesson Away is the same initiative, now a sister initiative of the 7FOR1 Foundation.',
+        'Some of our early sponsors and partners know this initiative through Learn & Bridge Foundation, the name we first planned for our organisation. We changed course as our goals grew, and because other organisations already had similar names. A Lesson Away is the same initiative, now a sister initiative of Seven For One Association (7FOR1).',
     },
   })
 }

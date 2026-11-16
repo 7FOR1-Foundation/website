@@ -15,7 +15,6 @@ export const footerNav = [
 
 /** Pages planned for later. Until they are built they show a short “coming soon” page. */
 export const comingSoonPages: Record<string, string> = {
-  about: 'About Us',
   contact: 'Contact Us',
   volunteer: 'Volunteer With Us',
   donate: 'Donate',

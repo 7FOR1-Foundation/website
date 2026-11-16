@@ -24,7 +24,7 @@ export function Footer({ settings }: { settings: SiteSetting }) {
     <footer className="on-dark bg-brand-600 text-white">
       <div className={`container-page grid gap-10 py-12 sm:grid-cols-2 sm:py-16 lg:items-start ${columns}`}>
         <div>
-          <Link href="/" aria-label="7FOR1 Foundation home" className="inline-block">
+          <Link href="/" aria-label="7FOR1 home" className="inline-block">
             <Logo image={settings.logoWhite} variant="white" className="h-20 w-auto sm:h-24" />
           </Link>
           {settings.tagline ? <p className="mt-4 text-2xl sm:text-3xl">{settings.tagline}</p> : null}
@@ -86,7 +86,7 @@ export function Footer({ settings }: { settings: SiteSetting }) {
       </div>
       <div className="border-t border-white/20">
         <p className="container-page py-5 text-sm text-white/90">
-          © {new Date().getFullYear()} 7FOR1 (Seven For One) Foundation
+          © {new Date().getFullYear()} Seven For One Association (7FOR1)
         </p>
       </div>
     </footer>

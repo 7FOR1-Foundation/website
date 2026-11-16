@@ -48,8 +48,11 @@ export const uploadIfPresent = async (
   })
   const docs = candidates.filter((doc) => doc.filename && sameFile.test(doc.filename))
   if (docs[0]) {
-    // A different local file under the same name (e.g. a sharper logo) replaces the upload.
-    const replaced = docs[0].filesize !== fs.statSync(file).size
+    // Stored photos are resized and watermarked, so their size never matches the
+    // local original: comparing sizes would re-upload every photo on every run.
+    // Replace the stored file (e.g. with a sharper logo) only when asked:
+    //   SEED_REPLACE_FILES=1 pnpm seed:ala
+    const replaced = process.env.SEED_REPLACE_FILES === '1' && docs[0].filesize !== fs.statSync(file).size
     if (replaced || (consentNote && docs[0].consentNote !== consentNote)) {
       return payload.update({
         collection: 'media',
