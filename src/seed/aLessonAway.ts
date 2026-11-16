@@ -57,7 +57,7 @@ export const seedALessonAway = async (payload: Payload) => {
     type: 'sister',
     summary:
       'A separate initiative started by 7FOR1’s founder to help students affected by the crisis in the Northwest and Southwest return to school.',
-    goal: 'We help children affected by the crisis in Cameroon’s Northwest region, especially those facing disability or displacement, go back to school with dignity and support.',
+    goal: 'We help children affected by the crisis in Cameroon’s Northwest and Southwest regions, especially those facing disability or displacement, go back to school with dignity and support.',
     body: paragraphs(
       'Since the crisis in Cameroon’s Northwest and Southwest regions began in 2016, families have been displaced, schools have closed, and many children have lost a parent or seen a parent injured. The relatives who take these children in often cannot afford school fees.',
       'In many communities, public schools, the most affordable option, have stayed closed. That leaves community, private and mission schools, which cost more. Some children are sent to learn a trade or work in other homes when they should be in class.',
