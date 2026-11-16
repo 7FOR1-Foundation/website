@@ -36,9 +36,9 @@ export const seedAboutPage = async (payload: Payload, { force = false } = {}) =>
       story: {
         heading: 'Our story',
         text: [
-          'People with disabilities don’t need pity. They need access. That belief, summed up in our motto “Action Over Sympathy”, is what brought Seven For One together.',
-          'We started with practical steps: training blind learners in digital skills, with volunteers on the ground and presenters joining online, and running a four-week training with educators from VIFAL on inclusive teaching, disability rights and cultural sensitivity. Our sister initiative, A Lesson Away, has helped children affected by the crisis in the Northwest go back to school since 2022.',
-          'Today we are a registered association with our own constitution. We want to build an Africa where people with disabilities learn, work and lead on equal terms, and where every child grows up knowing that inclusion is normal.',
+          'People with disabilities don’t need pity. They need access. That belief, captured in our motto “Action Over Sympathy”, is why Seven For One exists.',
+          'We began with practical steps. We trained blind learners in digital skills, with volunteers on the ground and presenters joining online. We also ran a four-week training with educators from VIFAL on inclusive teaching, disability rights, and cultural sensitivity. Our sister initiative, A Lesson Away, has helped children affected by the crisis in the Northwest and Southwest return to school since 2022.',
+          'Today, Seven For One is a registered association with its own constitution, officially registered on 14 April 2025. We are working toward an Africa where people with disabilities learn, work, and lead on equal terms, and where every child grows up knowing that inclusion is normal.',
         ].join('\n\n'),
         ...(volunteersPhoto ? { image: volunteersPhoto.id } : {}),
         imageCaption: 'Some of our volunteers.',
