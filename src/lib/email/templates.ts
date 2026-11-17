@@ -45,7 +45,7 @@ ${body}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
 <tr><td style="padding:20px 32px;font:13px/1.6 Arial,Helvetica,sans-serif;color:${BODY};text-align:center;">
 Action Over Sympathy<br>${ADDRESS}<br>
-<a href="${siteUrl}" style="color:${BRAND};">www.7for1.org</a>${
+<a href="${siteUrl}" style="color:${BRAND};">www.7for1.org</a> · <a href="${siteUrl}/privacy" style="color:${BRAND};">Privacy policy</a>${
   unsubscribe ? ` · <a href="{{ unsubscribe }}" style="color:${BRAND};">Unsubscribe</a>` : ''
 }
 </td></tr>

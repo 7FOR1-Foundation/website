@@ -10,6 +10,11 @@ export const getSiteSettings = async (): Promise<SiteSetting> => {
   return payload.findGlobal({ slug: 'site-settings', depth: 1 })
 }
 
+export const getPrivacyPage = async () => {
+  const payload = await payloadClient()
+  return payload.findGlobal({ slug: 'privacy-page', depth: 0 })
+}
+
 export const getHomePage = async (): Promise<HomePage> => {
   const payload = await payloadClient()
   return payload.findGlobal({ slug: 'home-page', depth: 1 })

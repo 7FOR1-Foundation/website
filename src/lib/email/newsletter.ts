@@ -100,6 +100,20 @@ export async function syncConfirmedToBrevo(payload: Payload) {
   return { waiting: docs.length, added }
 }
 
+/** Unconfirmed sign-ups are deleted after this long (promised in the privacy policy). */
+const UNCONFIRMED_DAYS = 30
+
+/** Deletes sign-ups that were never confirmed, as the privacy policy promises. */
+export async function removeUnconfirmedSignups(payload: Payload) {
+  const cutoff = new Date(Date.now() - UNCONFIRMED_DAYS * 24 * 60 * 60 * 1000).toISOString()
+  const { docs } = await payload.delete({
+    collection: 'subscribers',
+    where: { and: [{ status: { equals: 'pending' } }, { createdAt: { less_than: cutoff } }] },
+    depth: 0,
+  })
+  return docs.length
+}
+
 const bylineOf = (post: Post) => {
   const names = (post.authors ?? []).flatMap((author) => (typeof author === 'object' && author ? [author.name] : []))
   return names.length ? `By ${names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names.at(-1)}` : names[0]}` : null

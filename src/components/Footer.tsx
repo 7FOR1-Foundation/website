@@ -88,6 +88,11 @@ export function Footer({ settings }: { settings: SiteSetting }) {
         <div className="container-page flex flex-col gap-1 py-5 text-sm text-white/90 lg:flex-row lg:flex-wrap lg:justify-center lg:gap-x-6 lg:text-center">
           <p>© {new Date().getFullYear()} Seven For One Association (7FOR1)</p>
           {settings.registration?.note ? <p>{settings.registration.note}</p> : null}
+          <p>
+            <Link href="/privacy" className="underline underline-offset-4 hover:text-white">
+              Privacy policy
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

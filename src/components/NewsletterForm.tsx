@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useActionState, useEffect, useId, useRef } from 'react'
 
 import { subscribe, type SubscribeState } from '@/app/(frontend)/actions'
@@ -73,6 +74,12 @@ export function NewsletterForm({ source = 'home' }: { source?: string }) {
       </div>
       <p id={messageId} role="alert" className="mt-3 min-h-6 text-sm text-red-200">
         {state.status === 'error' ? state.message : ''}
+      </p>
+      <p className="mt-1 text-sm text-white/80">
+        We’ll only use your email to send our updates. Unsubscribe at any time.{' '}
+        <Link href="/privacy" className="underline underline-offset-4 hover:text-white">
+          Privacy policy
+        </Link>
       </p>
     </form>
   )

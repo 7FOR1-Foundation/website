@@ -9,6 +9,7 @@ import * as migration_20261116_133828_value_icons from './20261116_133828_value_
 import * as migration_20261117_151614_legal_status from './20261117_151614_legal_status';
 import * as migration_20261117_174839_blog_authors from './20261117_174839_blog_authors';
 import * as migration_20261117_191957_newsletter_double_opt_in from './20261117_191957_newsletter_double_opt_in';
+import * as migration_20261117_193743_privacy_page from './20261117_193743_privacy_page';
 
 export const migrations = [
   {
@@ -64,6 +65,11 @@ export const migrations = [
   {
     up: migration_20261117_191957_newsletter_double_opt_in.up,
     down: migration_20261117_191957_newsletter_double_opt_in.down,
-    name: '20261117_191957_newsletter_double_opt_in'
+    name: '20261117_191957_newsletter_double_opt_in',
+  },
+  {
+    up: migration_20261117_193743_privacy_page.up,
+    down: migration_20261117_193743_privacy_page.down,
+    name: '20261117_193743_privacy_page'
   },
 ];

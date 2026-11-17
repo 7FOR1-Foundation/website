@@ -15,6 +15,7 @@ import { Subscribers } from './collections/Subscribers'
 import { Users } from './collections/Users'
 import { AboutPage } from './globals/AboutPage'
 import { HomePage } from './globals/HomePage'
+import { PrivacyPage } from './globals/PrivacyPage'
 import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
@@ -29,7 +30,7 @@ export default buildConfig({
     meta: { titleSuffix: ' · 7FOR1 Admin' },
   },
   collections: [Initiatives, Projects, Posts, Authors, Media, Subscribers, Users],
-  globals: [HomePage, AboutPage, SiteSettings],
+  globals: [HomePage, AboutPage, PrivacyPage, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },

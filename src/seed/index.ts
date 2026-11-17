@@ -9,6 +9,7 @@ import { getPayload } from 'payload'
 
 import config from '../payload.config'
 import { REGISTRATION, seedAboutPage } from './aboutPage'
+import { seedPrivacyPage } from './privacyPage'
 import { seedALessonAway } from './aLessonAway'
 import { ctx, FOUNDATION_FORM, uploadIfPresent, upsertBySlug } from './helpers'
 
@@ -154,6 +155,7 @@ const seed = async () => {
 
   await seedALessonAway(payload)
   await seedAboutPage(payload)
+  await seedPrivacyPage(payload)
 
   await upsertBySlug(payload, 'projects', 'vifal-inclusive-teaching-training-2023', {
     title: 'Inclusive teaching training with VIFAL',
