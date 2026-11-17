@@ -1218,6 +1218,13 @@ export interface AboutPage {
      */
     text?: string | null;
   };
+  legal?: {
+    heading?: string | null;
+    /**
+     * How and when the association was legally declared. Leave an empty line between paragraphs. Leave empty to hide it.
+     */
+    text?: string | null;
+  };
   volunteering?: {
     heading?: string | null;
     intro?: string | null;
@@ -1272,6 +1279,16 @@ export interface SiteSetting {
     facebook?: string | null;
     instagram?: string | null;
     linkedin?: string | null;
+  };
+  /**
+   * Shown in the footer and given to search engines, so people can check the association is real.
+   */
+  registration?: {
+    /**
+     * One line in the footer, after the copyright. Leave empty to hide it.
+     */
+    note?: string | null;
+    date?: string | null;
   };
   donateUrl?: string | null;
   volunteerUrl?: string | null;
@@ -1420,6 +1437,12 @@ export interface AboutPageSelect<T extends boolean = true> {
         heading?: T;
         text?: T;
       };
+  legal?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+      };
   volunteering?:
     | T
     | {
@@ -1459,6 +1482,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         facebook?: T;
         instagram?: T;
         linkedin?: T;
+      };
+  registration?:
+    | T
+    | {
+        note?: T;
+        date?: T;
       };
   donateUrl?: T;
   volunteerUrl?: T;

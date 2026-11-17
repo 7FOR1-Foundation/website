@@ -85,9 +85,10 @@ export function Footer({ settings }: { settings: SiteSetting }) {
         </div>
       </div>
       <div className="border-t border-white/20">
-        <p className="container-page py-5 text-sm text-white/90">
-          © {new Date().getFullYear()} Seven For One Association (7FOR1)
-        </p>
+        <div className="container-page flex flex-col gap-1 py-5 text-sm text-white/90 md:flex-row md:flex-wrap md:gap-x-6">
+          <p>© {new Date().getFullYear()} Seven For One Association (7FOR1)</p>
+          {settings.registration?.note ? <p>{settings.registration.note}</p> : null}
+        </div>
       </div>
     </footer>
   )

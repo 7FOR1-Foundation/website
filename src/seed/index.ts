@@ -8,7 +8,7 @@ import path from 'path'
 import { getPayload } from 'payload'
 
 import config from '../payload.config'
-import { seedAboutPage } from './aboutPage'
+import { REGISTRATION, seedAboutPage } from './aboutPage'
 import { seedALessonAway } from './aLessonAway'
 import { ctx, FOUNDATION_FORM, uploadIfPresent, upsertBySlug } from './helpers'
 
@@ -49,6 +49,7 @@ const seed = async () => {
         linkedin: 'https://www.linkedin.com/company/7-for-1-foundation/',
         // instagram: no account yet
       },
+      registration: REGISTRATION,
       ...(logo ? { logo: logo.id } : {}),
       ...(logoWhite ? { logoWhite: logoWhite.id } : {}),
     },

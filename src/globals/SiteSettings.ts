@@ -43,6 +43,33 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
+      name: 'registration',
+      type: 'group',
+      label: 'Legal registration',
+      admin: { description: 'Shown in the footer and given to search engines, so people can check the association is real.' },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'note',
+              type: 'text',
+              admin: {
+                width: '70%',
+                description: 'One line in the footer, after the copyright. Leave empty to hide it.',
+              },
+            },
+            {
+              name: 'date',
+              type: 'date',
+              label: 'Date legally declared',
+              admin: { width: '30%', date: { pickerAppearance: 'dayOnly', displayFormat: 'd MMMM yyyy' } },
+            },
+          ],
+        },
+      ],
+    },
+    {
       type: 'collapsible',
       label: 'Button and form links',
       admin: {

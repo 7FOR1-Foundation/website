@@ -5,6 +5,7 @@ import React from 'react'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { ImageGuard } from '@/components/ImageGuard'
+import { OrganizationData } from '@/components/OrganizationData'
 import { getSiteSettings } from '@/lib/payload'
 
 import './styles.css'
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </main>
         <Footer settings={settings} />
         <ImageGuard />
+        <OrganizationData settings={settings} siteUrl={siteUrl} />
       </body>
     </html>
   )

@@ -9,6 +9,25 @@ import type { Payload } from 'payload'
 
 import { ctx, uploadIfPresent } from './helpers'
 
+/** From the acknowledgement of receipt of declaration issued in Limbe on 17 April 2025. */
+// Non-breaking spaces keep the reference on one line.
+const DECLARATION_REF = 'No.\u00a0356/G.37/C54/VOL\u00a0I/SAAJP/A3'
+
+export const LEGAL_STATUS_TEXT = [
+  'Seven For One Association is a non-profit, apolitical and non-denominational association, legally declared under Law No. 90/053 of 19 December 1990 on freedom of association in Cameroon.',
+  `Our declaration was acknowledged by the Senior Divisional Officer for Fako, Limbe, on 17 April 2025 (${DECLARATION_REF}). We are registered in Fako Division, with our headquarters in Buea Sub-Division, South West Region, and we can operate anywhere in Cameroon. A copy of the acknowledgement is available on request.`,
+].join('\n\n')
+
+export const LOCATION_TEXT =
+  'Our headquarters are in Buea, South West Region. Most of our activities take place in Douala, and we work with people and partners anywhere in Cameroon.'
+
+/** Site settings → Legal registration: the footer line and the date given to search engines. */
+export const REGISTRATION = {
+  note: `Non-profit association legally declared in Cameroon, ${DECLARATION_REF}`,
+  // Midday in Cameroon, so the day is the same in every time zone around Africa and Europe.
+  date: '2025-04-17T11:00:00.000Z',
+}
+
 export const seedAboutPage = async (payload: Payload, { force = false } = {}) => {
   const existing = await payload.findGlobal({ slug: 'about-page', depth: 0 })
   if (existing.intro?.text && !force) {
@@ -38,7 +57,7 @@ export const seedAboutPage = async (payload: Payload, { force = false } = {}) =>
         text: [
           'People with disabilities don’t need pity. They need access. That belief, captured in our motto “Action Over Sympathy”, is why Seven For One exists.',
           'We began with practical steps. We trained blind learners in digital skills, with volunteers on the ground and presenters joining online. We also ran a four-week training with educators from VIFAL on inclusive teaching, disability rights, and cultural sensitivity. Our sister initiative, A Lesson Away, has helped children affected by the crisis in the Northwest and Southwest return to school since 2022.',
-          'Today, Seven For One is a registered association with its own constitution, officially registered on 14 April 2025. We are working toward an Africa where people with disabilities learn, work, and lead on equal terms, and where every child grows up knowing that inclusion is normal.',
+          'Today, Seven For One is a registered association with its own constitution, officially registered on 17 April 2025. We are working toward an Africa where people with disabilities learn, work, and lead on equal terms, and where every child grows up knowing that inclusion is normal.',
         ].join('\n\n'),
         ...(volunteersPhoto ? { image: volunteersPhoto.id } : {}),
         imageCaption: 'Some of our volunteers.',
@@ -99,7 +118,11 @@ export const seedAboutPage = async (payload: Payload, { force = false } = {}) =>
       },
       location: {
         heading: 'Where we are',
-        text: 'We are based in Douala, Cameroon, where most of our activities take place. The association is registered in Buea, South West Region.',
+        text: LOCATION_TEXT,
+      },
+      legal: {
+        heading: 'Legal status',
+        text: LEGAL_STATUS_TEXT,
       },
       volunteering: {
         heading: 'Ways to volunteer',

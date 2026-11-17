@@ -159,6 +159,22 @@ export const AboutPage: GlobalConfig = {
           ],
         },
         {
+          label: 'Legal status',
+          name: 'legal',
+          description: 'Shown beside “Where we are”. Never include ID card numbers or personal details.',
+          fields: [
+            { name: 'heading', type: 'text', defaultValue: 'Legal status' },
+            {
+              name: 'text',
+              type: 'textarea',
+              admin: {
+                description: 'How and when the association was legally declared. Leave an empty line between paragraphs. Leave empty to hide it.',
+                rows: 6,
+              },
+            },
+          ],
+        },
+        {
           label: 'Volunteering',
           name: 'volunteering',
           description: 'Ways people can help, shown just above “Join us”. Leave the list empty to hide it.',

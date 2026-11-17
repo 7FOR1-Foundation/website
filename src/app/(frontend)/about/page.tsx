@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import { CmsLink } from '@/components/CmsLink'
 import { HeroPattern } from '@/components/HeroPattern'
-import { BinocularsIcon, CheckIcon, MapPinIcon, TargetIcon } from '@/components/icons'
+import { BinocularsIcon, CheckIcon, MapPinIcon, ShieldCheckIcon, TargetIcon } from '@/components/icons'
 import { InitiativeCard } from '@/components/InitiativeCard'
 import { isValueIcon, ValueIcon, valueIconColour } from '@/components/ValueIcon'
 import { siteLinks } from '@/lib/links'
@@ -30,11 +30,15 @@ export default async function AboutUsPage() {
     getSiteSettings(),
   ])
   const links = siteLinks(settings)
-  const { intro, story, values, board, objectives, location, volunteering, closing } = about
+  const { intro, story, values, board, objectives, location, legal, volunteering, closing } = about
   const boardMembers = (board?.members ?? []).filter((member) => member.show)
   const { mission, vision } = home.whoWeAre
   const storyImage = asMedia(story?.image)
   const storyParagraphs = paragraphs(story?.text)
+  const factCards = [
+    { id: 'location', heading: location?.heading || 'Where we are', text: location?.text, Icon: MapPinIcon },
+    { id: 'legal', heading: legal?.heading || 'Legal status', text: legal?.text, Icon: ShieldCheckIcon },
+  ].filter((card): card is typeof card & { text: string } => Boolean(card.text))
 
   return (
     <>
@@ -216,23 +220,27 @@ export default async function AboutUsPage() {
         </section>
       ) : null}
 
-      {/* Where we are */}
-      {location?.text ? (
-        <section aria-labelledby="location-title" className="container-page py-16 sm:py-20">
-          <div className="flex flex-col gap-5 rounded-xl bg-brand-100 p-6 sm:flex-row sm:items-start sm:p-10">
-            <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white">
-              <MapPinIcon />
-            </span>
-            <div>
-              <h2 id="location-title" className="text-2xl font-bold text-ink sm:text-3xl">
-                {location.heading || 'Where we are'}
-              </h2>
-              <div className="mt-3 max-w-3xl space-y-3 text-lg leading-8">
-                {paragraphs(location.text).map((text) => (
-                  <p key={text}>{text}</p>
-                ))}
+      {/* Where we are and legal status, side by side */}
+      {factCards.length ? (
+        <section aria-label="Where we are and our legal status" className="container-page py-16 sm:py-20">
+          <div className={`grid gap-6 ${factCards.length > 1 ? 'lg:grid-cols-2' : ''}`}>
+            {factCards.map(({ id, heading, text, Icon }) => (
+              <div key={id} className="flex flex-col gap-5 rounded-xl bg-brand-100 p-6 sm:flex-row sm:items-start sm:p-10">
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white">
+                  <Icon />
+                </span>
+                <div>
+                  <h2 id={`${id}-title`} className="text-2xl font-bold text-ink sm:text-3xl">
+                    {heading}
+                  </h2>
+                  <div className="mt-3 max-w-3xl space-y-3 text-lg leading-8">
+                    {paragraphs(text).map((part) => (
+                      <p key={part}>{part}</p>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </section>
       ) : null}
