@@ -82,7 +82,10 @@ Commit the new migration; it runs automatically on the next deploy.
 | `PAYLOAD_SECRET` | Long random string used to sign admin sessions |
 | `NEXT_PUBLIC_SITE_URL` | Public URL of the site |
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob media storage (created automatically when a Blob store is connected to the Vercel project) |
-| `BREVO_API_KEY` | Email sending and newsletter list sync |
+| `BREVO_API_KEY` | Brevo key (a Vercel Secret): newsletter confirmation emails, the subscriber list and new-post emails. Restricted to Transactional email, Email campaigns, Contacts and Account (read) |
+| `BREVO_LIST_ID` | Optional. Brevo list for subscribers (default 3, "Website subscribers") |
+| `CRON_SECRET` | Optional. If set, only Vercel Cron can call `/cron/newsletter`, the weekly check that keeps the Brevo key in use |
+| `NEWSLETTER_SEND` | Optional. `1` lets a non-production server email the real list (the live site always does) |
 | `CONTACT_INBOX` | Where contact and volunteer notifications are sent |
 | `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Spam protection on public forms |
 

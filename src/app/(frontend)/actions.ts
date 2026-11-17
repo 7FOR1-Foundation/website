@@ -1,7 +1,9 @@
 'use server'
 
 import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 
+import { confirmSubscription, startSubscription } from '@/lib/email/newsletter'
 import { payloadClient } from '@/lib/payload'
 
 export type SubscribeState = { status: 'idle' | 'success' | 'error'; message: string; email?: string }
@@ -39,36 +41,31 @@ export async function subscribe(_prev: SubscribeState, formData: FormData): Prom
 
   try {
     const payload = await payloadClient()
-    const existing = await payload.find({
-      collection: 'subscribers',
-      where: { email: { equals: email } },
-      limit: 1,
-      depth: 0,
-    })
-    if (existing.docs[0]) {
-      if (existing.docs[0].status === 'unsubscribed') {
-        await payload.update({
-          collection: 'subscribers',
-          id: existing.docs[0].id,
-          data: { status: 'pending', consentAt: new Date().toISOString() },
-        })
-      }
-    } else {
-      await payload.create({
-        collection: 'subscribers',
-        data: {
-          email,
-          status: 'pending',
-          source: String(formData.get('source') ?? 'home'),
-          consentAt: new Date().toISOString(),
-        },
-      })
-    }
+    const source = String(formData.get('source') ?? 'home').slice(0, 40)
+    const result = await startSubscription(payload, email, source)
     // Same answer whether or not the address was already on the list, so the
     // form can't be used to find out who has subscribed.
-    return { status: 'success', message: 'Thank you for subscribing! We’ll keep you posted.' }
+    if (result === 'stored') return { status: 'success', message: 'Thank you for subscribing! We’ll keep you posted.' }
+    return {
+      status: 'success',
+      message:
+        'Almost done! Check your inbox for an email from 7FOR1 and click the link to confirm. If you’re already subscribed, there’s nothing more to do.',
+    }
   } catch (error) {
     console.error('Newsletter sign-up failed', error)
-    return { status: 'error', message: 'Something went wrong. Please try again later.', email }
+    return { status: 'error', message: 'Something went wrong and we couldn’t send the confirmation email. Please try again later.', email }
   }
+}
+
+/** The "Yes, subscribe me" button on /newsletter/confirm. */
+export async function confirmNewsletter(formData: FormData) {
+  const token = String(formData.get('token') ?? '')
+  let result: Awaited<ReturnType<typeof confirmSubscription>> = 'invalid'
+  try {
+    result = await confirmSubscription(await payloadClient(), token)
+  } catch (error) {
+    console.error('Newsletter confirmation failed', error)
+    redirect('/newsletter/confirm?result=error')
+  }
+  redirect(`/newsletter/confirm?result=${result}`)
 }

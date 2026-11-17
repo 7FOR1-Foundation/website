@@ -512,6 +512,11 @@ export interface Post {
    * Shown at the end of the post. Use “Legal” or “Health” when an expert gives general guidance.
    */
   readerNote?: ('legal' | 'health' | 'opinion' | 'custom') | null;
+  /**
+   * Sends one email (title, summary, “Read the full post”) to the newsletter list when the post is published. Sent only once.
+   */
+  emailSubscribers?: boolean | null;
+  emailedAt?: string | null;
   readerNoteText?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -559,6 +564,12 @@ export interface Subscriber {
    */
   source?: string | null;
   consentAt?: string | null;
+  /**
+   * Ticked once added to the Brevo list. A weekly check retries any that failed.
+   */
+  brevoSynced?: boolean | null;
+  confirmTokenHash?: string | null;
+  confirmSentAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -920,6 +931,8 @@ export interface PostsSelect<T extends boolean = true> {
   body?: T;
   authors?: T;
   readerNote?: T;
+  emailSubscribers?: T;
+  emailedAt?: T;
   readerNoteText?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -994,6 +1007,9 @@ export interface SubscribersSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   consentAt?: T;
+  brevoSynced?: T;
+  confirmTokenHash?: T;
+  confirmSentAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }

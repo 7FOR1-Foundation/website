@@ -7,6 +7,8 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
+  // Hide the "N" developer badge on local previews (it never shows on the live site).
+  devIndicators: false,
   images: {
     localPatterns: [{ pathname: '/api/media/file/**' }, { pathname: '/images/**' }],
     remotePatterns: [{ protocol: 'https', hostname: '*.public.blob.vercel-storage.com' }],

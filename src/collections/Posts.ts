@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { isStaff, publishedOrStaff } from '../access'
 import { readerNotes } from '../fields/readerNotes'
 import { slugField } from '../fields/slug'
+import { emailOnPublish } from '../hooks/emailOnPublish'
 import { revalidateCollection, revalidateOnDelete } from '../hooks/revalidate'
 
 const paths = (doc: Record<string, unknown>) => ['/', '/blog', `/blog/${doc.slug}`]
@@ -24,7 +25,7 @@ export const Posts: CollectionConfig = {
     delete: isStaff,
   },
   hooks: {
-    afterChange: [revalidateCollection(paths)],
+    afterChange: [revalidateCollection(paths), emailOnPublish],
     afterDelete: [revalidateOnDelete(paths)],
   },
   fields: [
@@ -64,6 +65,24 @@ export const Posts: CollectionConfig = {
         description: 'Shown at the end of the post. Use “Legal” or “Health” when an expert gives general guidance.',
       },
       options: Object.entries(readerNotes).map(([value, { label }]) => ({ value, label })),
+    },
+    {
+      name: 'emailSubscribers',
+      label: 'Email subscribers about this post',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description:
+          'Sends one email (title, summary, “Read the full post”) to the newsletter list when the post is published. Sent only once.',
+        condition: (data) => !data?.emailedAt,
+      },
+    },
+    {
+      name: 'emailedAt',
+      label: 'Emailed to subscribers',
+      type: 'text',
+      admin: { position: 'sidebar', readOnly: true, condition: (data) => Boolean(data?.emailedAt) },
     },
     {
       name: 'readerNoteText',
