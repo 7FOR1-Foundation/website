@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { isStaff, publishedOrStaff } from '../access'
+import { readerNotes } from '../fields/readerNotes'
 import { slugField } from '../fields/slug'
 import { revalidateCollection, revalidateOnDelete } from '../hooks/revalidate'
 
@@ -43,5 +44,32 @@ export const Posts: CollectionConfig = {
     { name: 'excerpt', type: 'textarea', required: true, maxLength: 280 },
     { name: 'coverImage', type: 'upload', relationTo: 'media' },
     { name: 'body', type: 'richText' },
+    {
+      name: 'authors',
+      label: 'Written by',
+      type: 'relationship',
+      relationTo: 'authors',
+      hasMany: true,
+      admin: {
+        position: 'sidebar',
+        description: 'Leave empty to credit Seven For One Association. Add people under Content → Authors.',
+      },
+    },
+    {
+      name: 'readerNote',
+      label: 'Note to readers',
+      type: 'select',
+      admin: {
+        position: 'sidebar',
+        description: 'Shown at the end of the post. Use “Legal” or “Health” when an expert gives general guidance.',
+      },
+      options: Object.entries(readerNotes).map(([value, { label }]) => ({ value, label })),
+    },
+    {
+      name: 'readerNoteText',
+      label: 'Your note',
+      type: 'textarea',
+      admin: { position: 'sidebar', condition: (_, siblingData) => siblingData?.readerNote === 'custom' },
+    },
   ],
 }

@@ -70,6 +70,7 @@ export interface Config {
     initiatives: Initiative;
     projects: Project;
     posts: Post;
+    authors: Author;
     media: Media;
     subscribers: Subscriber;
     users: User;
@@ -88,6 +89,7 @@ export interface Config {
     initiatives: InitiativesSelect<false> | InitiativesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -502,9 +504,46 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Leave empty to credit Seven For One Association. Add people under Content → Authors.
+   */
+  authors?: (number | Author)[] | null;
+  /**
+   * Shown at the end of the post. Use “Legal” or “Health” when an expert gives general guidance.
+   */
+  readerNote?: ('legal' | 'health' | 'opinion' | 'custom') | null;
+  readerNoteText?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * Guest experts and team members who write blog posts. Add someone only after they have agreed (an email is enough) to have their name, title and photo on the site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  name: string;
+  /**
+   * Shown next to their name, e.g. “Lawyer, Cameroon Bar Association” or “Special-needs teacher”.
+   */
+  credentials?: string | null;
+  /**
+   * Optional. Two or three sentences on their experience, shown at the end of their posts.
+   */
+  bio?: string | null;
+  /**
+   * Optional. A square head-and-shoulders photo works best. Untick the watermark when uploading.
+   */
+  photo?: (number | null) | Media;
+  /**
+   * Optional. Lets readers check who they are.
+   */
+  link?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -681,6 +720,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'authors';
+        value: number | Author;
       } | null)
     | ({
         relationTo: 'media';
@@ -875,9 +918,25 @@ export interface PostsSelect<T extends boolean = true> {
   excerpt?: T;
   coverImage?: T;
   body?: T;
+  authors?: T;
+  readerNote?: T;
+  readerNoteText?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  name?: T;
+  credentials?: T;
+  bio?: T;
+  photo?: T;
+  link?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

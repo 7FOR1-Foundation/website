@@ -7,6 +7,7 @@ import * as migration_20261112_151706_sister_initiative_page from './20261112_15
 import * as migration_20261116_130950_about_page from './20261116_130950_about_page';
 import * as migration_20261116_133828_value_icons from './20261116_133828_value_icons';
 import * as migration_20261117_151614_legal_status from './20261117_151614_legal_status';
+import * as migration_20261117_174839_blog_authors from './20261117_174839_blog_authors';
 
 export const migrations = [
   {
@@ -52,6 +53,11 @@ export const migrations = [
   {
     up: migration_20261117_151614_legal_status.up,
     down: migration_20261117_151614_legal_status.down,
-    name: '20261117_151614_legal_status'
+    name: '20261117_151614_legal_status',
+  },
+  {
+    up: migration_20261117_174839_blog_authors.up,
+    down: migration_20261117_174839_blog_authors.down,
+    name: '20261117_174839_blog_authors'
   },
 ];

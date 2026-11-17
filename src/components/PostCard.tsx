@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { asMedia } from '@/lib/payload'
 import type { Post } from '@/payload-types'
 
+import { Byline, postAuthors } from './PostAuthors'
+
 export const formatPostDate = (value?: string | null) =>
   value ? new Date(value).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : null
 
@@ -27,6 +29,12 @@ export function PostCard({ post }: { post: Post }) {
           {post.title}
         </Link>
       </h3>
+      {/* Named authors only: every other post is by the association. */}
+      {postAuthors(post).length ? (
+        <p className="mt-1 text-sm">
+          <Byline post={post} />
+        </p>
+      ) : null}
       <p className="mt-2 leading-7">{post.excerpt}</p>
     </article>
   )
