@@ -116,6 +116,22 @@ export const DonatePage: GlobalConfig = {
                       relationTo: 'initiatives',
                       admin: { width: '50%', description: 'Optional. Adds a “Learn more” link.' },
                     },
+                    {
+                      name: 'project',
+                      label: 'Project page',
+                      type: 'relationship',
+                      relationTo: 'projects',
+                      admin: {
+                        width: '50%',
+                        description:
+                          'Optional. When set, “Learn more” goes to the project instead.',
+                      },
+                    },
+                  ],
+                },
+                {
+                  type: 'row',
+                  fields: [
                     { name: 'image', type: 'upload', relationTo: 'media', admin: { width: '50%' } },
                   ],
                 },

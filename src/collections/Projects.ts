@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { isStaff, publishedOrStaff } from '../access'
 import { slugField } from '../fields/slug'
+import { validateLink } from '../fields/validate'
 import { revalidateCollection, revalidateOnDelete } from '../hooks/revalidate'
 
 /** The initiative field may be an id or a populated document. */
@@ -43,7 +44,8 @@ export const Projects: CollectionConfig = {
           const parent = await req.payload
             .findByID({ collection: 'initiatives', id: doc.initiative, depth: 0, req, draft: true })
             .catch(() => null)
-          if (parent) return revalidateCollection(paths)({ ...args, doc: { ...doc, initiative: parent } })
+          if (parent)
+            return revalidateCollection(paths)({ ...args, doc: { ...doc, initiative: parent } })
         }
         return revalidateCollection(paths)(args)
       },
@@ -78,14 +80,26 @@ export const Projects: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        { name: 'startDate', type: 'date', admin: { width: '50%', date: { pickerAppearance: 'dayOnly' } } },
-        { name: 'endDate', type: 'date', admin: { width: '50%', date: { pickerAppearance: 'dayOnly' } } },
+        {
+          name: 'startDate',
+          type: 'date',
+          admin: { width: '50%', date: { pickerAppearance: 'dayOnly' } },
+        },
+        {
+          name: 'endDate',
+          type: 'date',
+          admin: { width: '50%', date: { pickerAppearance: 'dayOnly' } },
+        },
       ],
     },
     {
       type: 'row',
       fields: [
-        { name: 'location', type: 'text', admin: { width: '50%', description: 'e.g. Buea, Cameroon' } },
+        {
+          name: 'location',
+          type: 'text',
+          admin: { width: '50%', description: 'e.g. Buea, Cameroon' },
+        },
         {
           name: 'peopleReached',
           type: 'number',
@@ -94,7 +108,82 @@ export const Projects: CollectionConfig = {
         },
       ],
     },
-    { name: 'partners', type: 'text', admin: { description: 'Organisations you worked with.' } },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'timing',
+          label: 'When',
+          type: 'text',
+          admin: {
+            width: '50%',
+            description: 'Shown when the exact dates aren’t set yet, e.g. “2027” or “Early 2027”.',
+          },
+        },
+        {
+          name: 'audience',
+          label: 'Who it’s for',
+          type: 'text',
+          admin: {
+            width: '50%',
+            description: 'e.g. “At least 10 blind and visually impaired people in Buea”.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'partners',
+      type: 'text',
+      admin: {
+        description: 'Organisations you worked with. Only name them once they have agreed.',
+      },
+    },
+    {
+      type: 'collapsible',
+      label: 'Funding and button',
+      admin: {
+        description: 'Optional. Shown beside the write-up, with an approximate US dollar figure.',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'fundingGoal',
+              label: 'Budget (FCFA)',
+              type: 'number',
+              min: 0,
+              admin: { width: '50%' },
+            },
+            {
+              name: 'fundingRaised',
+              label: 'Raised so far (FCFA)',
+              type: 'number',
+              min: 0,
+              admin: { width: '50%', description: 'Leave empty until fundraising has started.' },
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'ctaLabel',
+              label: 'Button label',
+              type: 'text',
+              admin: { width: '50%', description: 'e.g. “Support this project”.' },
+            },
+            {
+              name: 'ctaLink',
+              label: 'Button link',
+              type: 'text',
+              validate: validateLink,
+              admin: { width: '50%', description: 'e.g. /donate' },
+            },
+          ],
+        },
+      ],
+    },
     { name: 'summary', type: 'textarea', required: true, maxLength: 280 },
     { name: 'coverImage', type: 'upload', relationTo: 'media' },
     { name: 'body', type: 'richText', label: 'Write-up' },

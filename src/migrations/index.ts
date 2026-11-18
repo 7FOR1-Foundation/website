@@ -14,6 +14,7 @@ import * as migration_20261118_084250_about_philosophy_approach_partners from '.
 import * as migration_20261118_093542_forms_and_donate_page from './20261118_093542_forms_and_donate_page';
 import * as migration_20261118_100120_volunteer_count from './20261118_100120_volunteer_count';
 import * as migration_20261118_100524_ala_next_button from './20261118_100524_ala_next_button';
+import * as migration_20261118_101541_project_details from './20261118_101541_project_details';
 
 export const migrations = [
   {
@@ -94,6 +95,11 @@ export const migrations = [
   {
     up: migration_20261118_100524_ala_next_button.up,
     down: migration_20261118_100524_ala_next_button.down,
-    name: '20261118_100524_ala_next_button'
+    name: '20261118_100524_ala_next_button',
+  },
+  {
+    up: migration_20261118_101541_project_details.up,
+    down: migration_20261118_101541_project_details.down,
+    name: '20261118_101541_project_details'
   },
 ];

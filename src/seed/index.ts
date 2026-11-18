@@ -11,6 +11,7 @@ import config from '../payload.config'
 import { REGISTRATION, seedAboutPage } from './aboutPage'
 import { seedDonatePage } from './donatePage'
 import { seedPrivacyPage } from './privacyPage'
+import { seedTechInclusion } from './techInclusion'
 import { seedALessonAway } from './aLessonAway'
 import { ctx, uploadIfPresent, upsertBySlug } from './helpers'
 
@@ -158,6 +159,7 @@ const seed = async () => {
   await seedALessonAway(payload)
   await seedAboutPage(payload)
   await seedPrivacyPage(payload)
+  await seedTechInclusion(payload)
   await seedDonatePage(payload)
 
   await upsertBySlug(payload, 'projects', 'vifal-inclusive-teaching-training-2023', {

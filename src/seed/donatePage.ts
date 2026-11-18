@@ -8,6 +8,23 @@
 import type { Payload } from 'payload'
 
 import { ctx } from './helpers'
+import { TECH_INCLUSION_SLUG, TECH_INCLUSION_TITLE } from './techInclusion'
+
+/** Was “Digital Skills Initiative 2027”: the project is part of the Digital Skills Training initiative. */
+export const OLD_TECH_CAMPAIGN_TITLE = 'Digital Skills Initiative 2027'
+export const TECH_CAMPAIGN = (project?: number, initiative?: number) => ({
+  title: `${TECH_INCLUSION_TITLE} 2027`,
+  label: 'Starting in 2027',
+  text: 'Part of our Digital Skills Training initiative: a three-day smartphone training in Buea for at least 10 blind and visually impaired people. Each participant receives a smartphone with a screen reader and learns to make calls, send messages, use WhatsApp and find information online, then joins the 7FOR1 Digital Inclusion Network for follow-up support.',
+  goal: 645000,
+  needs: [
+    { amount: 500000, text: '10 smartphones with a screen reader, one for each participant' },
+    { amount: 75000, text: 'the training venue for three days' },
+    { amount: 70000, text: 'transport and meals for participants' },
+  ],
+  ...(initiative ? { initiative } : {}),
+  ...(project ? { project } : {}),
+})
 
 /** A Lesson Away's secondary school phase (2027/28): 2 students, about 100,000 FCFA each. */
 export const SECONDARY_CAMPAIGN = (lessonAway?: number) => ({
@@ -15,7 +32,12 @@ export const SECONDARY_CAMPAIGN = (lessonAway?: number) => ({
   label: 'Planned for 2027/28',
   text: 'Finishing primary school should be a beginning, not the end. From the 2027/28 school year, A Lesson Away will support students through secondary school, starting with 2 students.',
   goal: 200000,
-  needs: [{ amount: 200000, text: 'secondary school costs for 2 students for the 2027/28 school year, about 100,000 FCFA each' }],
+  needs: [
+    {
+      amount: 200000,
+      text: 'secondary school costs for 2 students for the 2027/28 school year, about 100,000 FCFA each',
+    },
+  ],
   ...(lessonAway ? { initiative: lessonAway } : {}),
 })
 
@@ -38,6 +60,13 @@ export const seedDonatePage = async (payload: Payload, { force = false } = {}) =
 
   const lessonAway = await initiativeId(payload, 'a-lesson-away')
   const digitalSkills = await initiativeId(payload, 'digital-skills-training')
+  const { docs: projects } = await payload.find({
+    collection: 'projects',
+    where: { slug: { equals: TECH_INCLUSION_SLUG } },
+    depth: 0,
+    limit: 1,
+  })
+  const techProject = projects[0]?.id
 
   await payload.updateGlobal({
     slug: 'donate-page',
@@ -66,21 +95,7 @@ export const seedDonatePage = async (payload: Payload, { force = false } = {}) =
             ...(lessonAway ? { initiative: lessonAway } : {}),
           },
           SECONDARY_CAMPAIGN(lessonAway),
-          {
-            title: 'Digital Skills Initiative 2027',
-            label: 'Starting in 2027',
-            text: 'A three-day smartphone training in Buea for at least 10 blind and visually impaired people. Each participant receives a smartphone with a screen reader and learns to make calls, send messages, use WhatsApp and find information online, then joins the 7FOR1 Digital Inclusion Network for follow-up support.',
-            goal: 645000,
-            needs: [
-              {
-                amount: 500000,
-                text: '10 smartphones with a screen reader, one for each participant',
-              },
-              { amount: 75000, text: 'the training venue for three days' },
-              { amount: 70000, text: 'transport and meals for participants' },
-            ],
-            ...(digitalSkills ? { initiative: digitalSkills } : {}),
-          },
+          TECH_CAMPAIGN(techProject, digitalSkills),
         ],
       },
       form: {

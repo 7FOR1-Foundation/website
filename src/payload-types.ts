@@ -464,9 +464,30 @@ export interface Project {
    */
   peopleReached?: number | null;
   /**
-   * Organisations you worked with.
+   * Shown when the exact dates aren’t set yet, e.g. “2027” or “Early 2027”.
+   */
+  timing?: string | null;
+  /**
+   * e.g. “At least 10 blind and visually impaired people in Buea”.
+   */
+  audience?: string | null;
+  /**
+   * Organisations you worked with. Only name them once they have agreed.
    */
   partners?: string | null;
+  fundingGoal?: number | null;
+  /**
+   * Leave empty until fundraising has started.
+   */
+  fundingRaised?: number | null;
+  /**
+   * e.g. “Support this project”.
+   */
+  ctaLabel?: string | null;
+  /**
+   * e.g. /donate
+   */
+  ctaLink?: string | null;
   summary: string;
   coverImage?: (number | null) | Media;
   body?: {
@@ -967,7 +988,13 @@ export interface ProjectsSelect<T extends boolean = true> {
   endDate?: T;
   location?: T;
   peopleReached?: T;
+  timing?: T;
+  audience?: T;
   partners?: T;
+  fundingGoal?: T;
+  fundingRaised?: T;
+  ctaLabel?: T;
+  ctaLink?: T;
   summary?: T;
   coverImage?: T;
   body?: T;
@@ -1499,6 +1526,10 @@ export interface DonatePage {
            * Optional. Adds a “Learn more” link.
            */
           initiative?: (number | null) | Initiative;
+          /**
+           * Optional. When set, “Learn more” goes to the project instead.
+           */
+          project?: (number | null) | Project;
           image?: (number | null) | Media;
           id?: string | null;
         }[]
@@ -1815,6 +1846,7 @@ export interface DonatePageSelect<T extends boolean = true> {
                     id?: T;
                   };
               initiative?: T;
+              project?: T;
               image?: T;
               id?: T;
             };

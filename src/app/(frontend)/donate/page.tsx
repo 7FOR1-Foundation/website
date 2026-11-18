@@ -4,8 +4,9 @@ import Link from 'next/link'
 
 import { DonationForm } from '@/components/forms/DonationForm'
 import { ArrowRightIcon } from '@/components/icons'
+import { Money } from '@/components/Money'
 import { PageHero } from '@/components/PageHero'
-import { approxUsd, formatFcfa } from '@/lib/money'
+import { formatFcfa } from '@/lib/money'
 import { asMedia, getDonatePage, getSiteSettings } from '@/lib/payload'
 
 export const metadata: Metadata = {
@@ -19,17 +20,6 @@ const paragraphs = (text?: string | null) =>
     .split(/\n\s*\n/)
     .map((part) => part.trim())
     .filter(Boolean)
-
-/** "380,000 FCFA (about $660)" */
-function Money({ amount, rate }: { amount: number; rate?: number | null }) {
-  const usd = approxUsd(amount, rate)
-  return (
-    <>
-      {formatFcfa(amount)}
-      {usd ? <span className="font-normal text-body"> ({usd})</span> : null}
-    </>
-  )
-}
 
 export default async function DonatePage() {
   const [page, settings] = await Promise.all([getDonatePage(), getSiteSettings()])
@@ -56,6 +46,13 @@ export default async function DonatePage() {
               const image = asMedia(campaign.image)
               const initiative =
                 typeof campaign.initiative === 'object' ? campaign.initiative : null
+              const project = typeof campaign.project === 'object' ? campaign.project : null
+              // The project page when there is one (more specific), otherwise the initiative's.
+              const learnMore = project?.slug
+                ? { href: `/projects/${project.slug}`, title: `the ${project.title}` }
+                : initiative?.slug
+                  ? { href: `/initiatives/${initiative.slug}`, title: initiative.title }
+                  : null
               const raised = campaign.raised ?? 0
               const goal = campaign.goal ?? 0
               // A progress bar only once fundraising has started; before that, just the goal.
@@ -155,13 +152,13 @@ export default async function DonatePage() {
                       </div>
                     ) : null}
 
-                    {initiative?.slug ? (
+                    {learnMore ? (
                       <p className="mt-auto pt-6">
                         <Link
-                          href={`/initiatives/${initiative.slug}`}
+                          href={learnMore.href}
                           className="inline-flex items-center gap-2 font-semibold text-brand-600 underline underline-offset-4"
                         >
-                          Learn more about {initiative.title}
+                          Learn more about {learnMore.title}
                           <ArrowRightIcon />
                         </Link>
                       </p>
