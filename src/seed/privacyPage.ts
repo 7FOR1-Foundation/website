@@ -9,7 +9,8 @@ import type { Payload } from 'payload'
 
 import { ctx } from './helpers'
 
-export const PRIVACY_MARKDOWN = `This policy explains what personal information Seven For One Association (7FOR1) collects through www.7for1.org, why we collect it, and what you can do about it. We collect as little as we can, and we never sell or rent your information.
+/** The first published version (17 November 2026), kept to detect admin edits before replacing it. */
+export const PRIVACY_MARKDOWN_V1 = `This policy explains what personal information Seven For One Association (7FOR1) collects through www.7for1.org, why we collect it, and what you can do about it. We collect as little as we can, and we never sell or rent your information.
 
 ## Who we are
 
@@ -86,20 +87,104 @@ If we change this policy, we will update this page and the date at the top. If a
 
 Seven For One Association (7FOR1), Buea, South West Region, Cameroon. Email: info7for1@gmail.com.`
 
+/** Current version (18 November 2026): forms now on the website instead of Google Forms. */
+export const PRIVACY_MARKDOWN = `This policy explains what personal information Seven For One Association (7FOR1) collects through www.7for1.org, why we collect it, and what you can do about it. We collect as little as we can, and we never sell or rent your information.
+
+## Who we are
+
+Seven For One Association (7FOR1) is a non-profit association legally declared in Cameroon, with its headquarters in Buea, South West Region. We are responsible for the personal information described here. You can contact us at info7for1@gmail.com.
+
+## What we collect and why
+
+### If you subscribe to our emails
+
+- We keep your email address, the dates you signed up and confirmed, and the page where you signed up.
+- We use it only to send you our updates: new blog posts and a short update on our work every quarter.
+- We first send you an email asking you to confirm, so nobody can sign you up without your agreement. If you don't confirm within 30 days, we delete the sign-up.
+- Every email has an "Unsubscribe" link at the bottom.
+
+### If you contact us, offer to volunteer or tell us you'd like to give
+
+- We keep what you enter in the form: your name, email address, phone number if you give it, and your answers.
+- We use it only to reply to you, organise volunteering or arrange your donation. A copy is emailed to our team so we can reply quickly, and we send you a short confirmation.
+- We never ask for card or bank details through this website.
+- We only thank donors publicly by name if they tick the box to say we may.
+
+### When you visit the website
+
+- We don't use advertising or tracking cookies, and we don't use analytics tools that follow you across the web.
+- Like all websites, our hosting provider automatically records technical details such as your IP address and type of browser for a short time, to keep the website secure and working.
+- The only cookie is the one our own team uses to sign in to the website's admin area.
+
+### Links to other websites
+
+Links to Facebook, LinkedIn or YouTube take you to those services, which have their own privacy policies.
+
+## Photos and stories
+
+We only publish photos and stories of the people we work with when they, or for children a parent or guardian, have agreed. We never publish children's names. If you appear in a photo on our website and would like it removed, write to us and we will take it down.
+
+## Who we share it with
+
+We never sell, rent or trade your information. We share it only with the services that run our website and emails, and only so they can do that work:
+
+- **Brevo** (France) sends our emails, including copies of form messages to our team, and stores our subscriber list.
+- **Vercel** (United States) hosts the website and its images.
+- **Neon** (United States) stores the website's database, including form messages.
+- **Google** (United States) provides our team's email inbox, where copies of form messages arrive.
+
+Some of these services store information outside Cameroon. We choose providers with strong security and data protection commitments.
+
+## How long we keep it
+
+- **Email subscribers:** until you unsubscribe. You can also ask us to delete your address completely.
+- **Unconfirmed sign-ups:** deleted after 30 days.
+- **Form messages:** only as long as we need them to reply to you or organise your volunteering or donation, and no longer than two years after our last contact, unless the law requires us to keep them longer (for example, records of donations).
+
+## Your rights
+
+You can ask us at any time to:
+
+- tell you what information we hold about you and give you a copy;
+- correct it;
+- delete it;
+- stop sending you emails (use the "Unsubscribe" link in any email, or write to us).
+
+Write to info7for1@gmail.com and we will reply within 30 days. These rights are protected by Cameroon's law on the protection of personal data and, for people in the European Union, by the General Data Protection Regulation (GDPR).
+
+## Keeping it safe
+
+Our website only works over an encrypted connection (https). Only a few members of our team can see subscriber and form information, using their own accounts and strong passwords.
+
+## Children
+
+Our emails and forms are meant for adults. If you are under 18, please ask a parent or guardian before signing up.
+
+## Changes to this policy
+
+If we change this policy, we will update this page and the date at the top. If a change is important, we will also tell our subscribers by email.
+
+## Contact us
+
+Seven For One Association (7FOR1), Buea, South West Region, Cameroon. Email: info7for1@gmail.com.`
+
+export const PRIVACY_UPDATED = '2026-11-18T11:00:00.000Z'
+
+/** The policy as rich text, for the admin's editor. */
+export const privacyBody = async (payload: Payload, markdown = PRIVACY_MARKDOWN) =>
+  convertMarkdownToLexical({ editorConfig: await editorConfigFactory.default({ config: payload.config }), markdown })
+
 export const seedPrivacyPage = async (payload: Payload, { force = false } = {}) => {
   const existing = await payload.findGlobal({ slug: 'privacy-page', depth: 0 })
   if (existing.body && !force) {
     payload.logger.info('The privacy policy already has content; leaving it as it is.')
     return
   }
-  const body = convertMarkdownToLexical({
-    editorConfig: await editorConfigFactory.default({ config: payload.config }),
-    markdown: PRIVACY_MARKDOWN,
-  })
+  const body = await privacyBody(payload)
   await payload.updateGlobal({
     slug: 'privacy-page',
     context: ctx(),
-    data: { title: 'Privacy policy', lastUpdated: '2026-11-17T11:00:00.000Z', body },
+    data: { title: 'Privacy policy', lastUpdated: PRIVACY_UPDATED, body },
   })
   payload.logger.info('Privacy policy filled with the first draft.')
 }

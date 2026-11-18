@@ -43,6 +43,17 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
+      name: 'usdRate',
+      label: 'FCFA per US dollar',
+      type: 'number',
+      min: 1,
+      defaultValue: 580,
+      admin: {
+        description:
+          'Used to show approximate dollar amounts next to FCFA (e.g. on the Donate page). Check the rate every few months; 1 USD is usually 550–620 FCFA.',
+      },
+    },
+    {
       name: 'registration',
       type: 'group',
       label: 'Legal registration',

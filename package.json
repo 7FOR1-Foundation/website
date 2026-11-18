@@ -20,6 +20,7 @@
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/index.ts",
     "seed:about": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/about-page.ts",
     "seed:privacy": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/privacy-page.ts",
+    "seed:donate": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/donate-page.ts",
     "seed:ala": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/a-lesson-away.ts"
   },
   "dependencies": {

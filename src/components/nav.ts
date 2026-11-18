@@ -13,9 +13,8 @@ export const footerNav = [
   { href: '/contact', label: 'Contact Us' },
 ]
 
-/** Pages planned for later. Until they are built they show a short “coming soon” page. */
-export const comingSoonPages: Record<string, string> = {
-  contact: 'Contact Us',
-  volunteer: 'Volunteer With Us',
-  donate: 'Donate',
-}
+/**
+ * Pages planned for later. Until they are built they show a short “coming soon”
+ * page. Contact, Volunteer and Donate now have their own pages and forms.
+ */
+export const comingSoonPages: Record<string, string> = {}

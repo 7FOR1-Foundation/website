@@ -9,11 +9,13 @@ import { fileURLToPath } from 'url'
 import { Authors } from './collections/Authors'
 import { Initiatives } from './collections/Initiatives'
 import { Media } from './collections/Media'
+import { Messages } from './collections/Messages'
 import { Posts } from './collections/Posts'
 import { Projects } from './collections/Projects'
 import { Subscribers } from './collections/Subscribers'
 import { Users } from './collections/Users'
 import { AboutPage } from './globals/AboutPage'
+import { DonatePage } from './globals/DonatePage'
 import { HomePage } from './globals/HomePage'
 import { PrivacyPage } from './globals/PrivacyPage'
 import { SiteSettings } from './globals/SiteSettings'
@@ -29,8 +31,8 @@ export default buildConfig({
     importMap: { baseDir: path.resolve(dirname) },
     meta: { titleSuffix: ' · 7FOR1 Admin' },
   },
-  collections: [Initiatives, Projects, Posts, Authors, Media, Subscribers, Users],
-  globals: [HomePage, AboutPage, PrivacyPage, SiteSettings],
+  collections: [Initiatives, Projects, Posts, Authors, Media, Messages, Subscribers, Users],
+  globals: [HomePage, AboutPage, DonatePage, PrivacyPage, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },

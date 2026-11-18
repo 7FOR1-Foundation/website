@@ -113,3 +113,53 @@ ${button(post.url, 'Read the full post')}`,
   })
   return { subject: post.title, previewText: post.excerpt, html }
 }
+
+/** To the team: one submitted form, every answer listed, reply goes to the sender. */
+export function teamNotificationEmail(form: {
+  typeLabel: string
+  name: string
+  rows: [string, string][]
+  adminUrl: string
+  siteUrl: string
+}) {
+  const subject = `New ${form.typeLabel.toLowerCase()} form from ${form.name}`
+  const rows = form.rows
+    .filter(([, value]) => value)
+    .map(
+      ([label, value]) =>
+        `<tr><th align="left" valign="top" style="padding:8px 12px 8px 0;font:bold 14px/1.5 Arial,Helvetica,sans-serif;color:${INK};white-space:nowrap;">${escapeHtml(label)}</th><td style="padding:8px 0;font:15px/1.5 Arial,Helvetica,sans-serif;color:${BODY};white-space:pre-wrap;">${escapeHtml(value)}</td></tr>`,
+    )
+    .join('')
+  const html = layout({
+    title: subject,
+    preheader: `${form.typeLabel} form sent through the website.`,
+    siteUrl: form.siteUrl,
+    body: `${heading(`New ${form.typeLabel.toLowerCase()} form`)}
+<p style="margin:0 0 12px;">Reply to this email to answer ${escapeHtml(form.name)} directly.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-top:1px solid #d6ebfa;">${rows}</table>
+${button(form.adminUrl, 'Open in the admin')}`,
+  })
+  const text = `New ${form.typeLabel.toLowerCase()} form\n\n${form.rows
+    .filter(([, value]) => value)
+    .map(([label, value]) => `${label}: ${value}`)
+    .join('\n')}\n\nOpen in the admin: ${form.adminUrl}`
+  return { subject, html, text }
+}
+
+/** To the sender: a short thank-you that says what happens next. */
+export function thankYouEmail(form: { name: string; intro: string; next: string; siteUrl: string; logoUrl?: string | null }) {
+  const subject = 'Thank you for getting in touch with 7FOR1'
+  const firstName = form.name.trim().split(/\s+/)[0]
+  const html = layout({
+    title: subject,
+    preheader: form.next,
+    siteUrl: form.siteUrl,
+    logoUrl: form.logoUrl,
+    body: `${heading(`Thank you, ${firstName}`)}
+<p style="margin:0 0 12px;">${escapeHtml(form.intro)}</p>
+<p style="margin:0 0 12px;">${escapeHtml(form.next)}</p>
+<p style="margin:0;">With thanks,<br>The Seven For One Association (7FOR1) team</p>`,
+  })
+  const text = `Thank you, ${firstName}\n\n${form.intro}\n\n${form.next}\n\nWith thanks,\nThe Seven For One Association (7FOR1) team\n${form.siteUrl}`
+  return { subject, html, text }
+}

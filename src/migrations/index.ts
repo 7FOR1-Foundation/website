@@ -11,6 +11,7 @@ import * as migration_20261117_174839_blog_authors from './20261117_174839_blog_
 import * as migration_20261117_191957_newsletter_double_opt_in from './20261117_191957_newsletter_double_opt_in';
 import * as migration_20261117_193743_privacy_page from './20261117_193743_privacy_page';
 import * as migration_20261118_084250_about_philosophy_approach_partners from './20261118_084250_about_philosophy_approach_partners';
+import * as migration_20261118_093542_forms_and_donate_page from './20261118_093542_forms_and_donate_page';
 
 export const migrations = [
   {
@@ -76,6 +77,11 @@ export const migrations = [
   {
     up: migration_20261118_084250_about_philosophy_approach_partners.up,
     down: migration_20261118_084250_about_philosophy_approach_partners.down,
-    name: '20261118_084250_about_philosophy_approach_partners'
+    name: '20261118_084250_about_philosophy_approach_partners',
+  },
+  {
+    up: migration_20261118_093542_forms_and_donate_page.up,
+    down: migration_20261118_093542_forms_and_donate_page.down,
+    name: '20261118_093542_forms_and_donate_page'
   },
 ];

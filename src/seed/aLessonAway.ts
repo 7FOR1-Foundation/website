@@ -89,13 +89,13 @@ export const seedALessonAway = async (payload: Payload) => {
       appeal: {
         label: '2026/27 school year',
         title: '13 students are in class this year. Help us see them through.',
-        text: 'All 13 students have started the 2026/27 school year. Sponsors have already given 150,000 FCFA for their back-to-school costs, and every further contribution, large or small, helps keep them in school until the end of the year. Get in touch through our form to donate or to sponsor a child.',
+        text: 'All 13 students have started the 2026/27 school year. Sponsors have already given 380,000 FCFA for their back-to-school costs, and every further contribution, large or small, helps keep them in school until the end of the year. Get in touch through our form to donate or to sponsor a child.',
         figures: [
           { value: '13', label: 'students in class for 2026/27' },
-          { value: '150,000', label: 'FCFA raised so far for back to school' },
+          { value: '380,000', label: 'FCFA raised so far for back to school' },
         ],
         buttonLabel: 'Donate or sponsor a child',
-        buttonLink: '/contact',
+        buttonLink: '/donate',
       },
       quote: 'Every student we’ve reached represents a family that chose to keep going.',
       provides: [
@@ -143,7 +143,7 @@ export const seedALessonAway = async (payload: Payload) => {
         {
           period: '2026/27',
           title: 'Our first students start secondary school',
-          text: 'Our two graduates have started secondary school, and 13 students are in class with our support. Sponsors have given 150,000 FCFA for back to school so far.',
+          text: 'Our two graduates have started secondary school, and 13 students are in class with our support. Sponsors have given 380,000 FCFA for back to school so far.',
         },
       ],
       funding: {

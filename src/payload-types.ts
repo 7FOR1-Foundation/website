@@ -72,6 +72,7 @@ export interface Config {
     posts: Post;
     authors: Author;
     media: Media;
+    messages: Message;
     subscribers: Subscriber;
     users: User;
     'payload-kv': PayloadKv;
@@ -91,6 +92,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    messages: MessagesSelect<false> | MessagesSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -106,12 +108,14 @@ export interface Config {
   globals: {
     'home-page': HomePage;
     'about-page': AboutPage;
+    'donate-page': DonatePage;
     'privacy-page': PrivacyPage;
     'site-settings': SiteSetting;
   };
   globalsSelect: {
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
     'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
+    'donate-page': DonatePageSelect<false> | DonatePageSelect<true>;
     'privacy-page': PrivacyPageSelect<false> | PrivacyPageSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
@@ -553,6 +557,44 @@ export interface Author {
   createdAt: string;
 }
 /**
+ * Sent through the Contact, Volunteer and Donate forms. You also get each one by email.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages".
+ */
+export interface Message {
+  id: number;
+  type: 'contact' | 'volunteer' | 'donation';
+  /**
+   * For your own follow-up.
+   */
+  status: 'new' | 'replied' | 'done';
+  name: string;
+  email: string;
+  phone?: string | null;
+  reason?: ('question' | 'partnership' | 'media' | 'writing' | 'other') | null;
+  organisation?: string | null;
+  location?: ('douala' | 'buea' | 'cameroon' | 'abroad') | null;
+  ways?: string[] | null;
+  skills?: string | null;
+  availability?: ('weekdays' | 'weekends' | 'evenings' | 'occasional')[] | null;
+  mode?: ('inPerson' | 'online' | 'both') | null;
+  accessNeeds?: string | null;
+  adult?: boolean | null;
+  campaign?: string | null;
+  amount?: string | null;
+  thankPublicly?: boolean | null;
+  message?: string | null;
+  consentAt?: string | null;
+  notified?: boolean | null;
+  /**
+   * Private. Only admins see this.
+   */
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "subscribers".
  */
@@ -741,6 +783,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'messages';
+        value: number | Message;
       } | null)
     | ({
         relationTo: 'subscribers';
@@ -998,6 +1044,35 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages_select".
+ */
+export interface MessagesSelect<T extends boolean = true> {
+  type?: T;
+  status?: T;
+  name?: T;
+  email?: T;
+  phone?: T;
+  reason?: T;
+  organisation?: T;
+  location?: T;
+  ways?: T;
+  skills?: T;
+  availability?: T;
+  mode?: T;
+  accessNeeds?: T;
+  adult?: T;
+  campaign?: T;
+  amount?: T;
+  thankPublicly?: T;
+  message?: T;
+  consentAt?: T;
+  notified?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1370,6 +1445,62 @@ export interface AboutPage {
   createdAt?: string | null;
 }
 /**
+ * Amounts are in FCFA. The site adds an approximate US dollar amount using the rate in Site settings.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donate-page".
+ */
+export interface DonatePage {
+  id: number;
+  intro?: {
+    title?: string | null;
+    text?: string | null;
+  };
+  campaigns?: {
+    heading?: string | null;
+    items?:
+      | {
+          title: string;
+          /**
+           * A short tag, e.g. “Ongoing” or “Starting in 2027”.
+           */
+          label?: string | null;
+          text: string;
+          /**
+           * Leave empty if fundraising hasn’t started.
+           */
+          raised?: number | null;
+          /**
+           * Leave empty to hide the progress bar.
+           */
+          goal?: number | null;
+          needs?:
+            | {
+                amount?: number | null;
+                text: string;
+                id?: string | null;
+              }[]
+            | null;
+          /**
+           * Optional. Adds a “Learn more” link.
+           */
+          initiative?: (number | null) | Initiative;
+          image?: (number | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  form?: {
+    heading?: string | null;
+    /**
+     * Explain what happens after someone sends the form.
+     */
+    text?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Update “Last updated” whenever you change the policy. Tell subscribers by email about important changes.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1425,6 +1556,10 @@ export interface SiteSetting {
     instagram?: string | null;
     linkedin?: string | null;
   };
+  /**
+   * Used to show approximate dollar amounts next to FCFA (e.g. on the Donate page). Check the rate every few months; 1 USD is usually 550–620 FCFA.
+   */
+  usdRate?: number | null;
   /**
    * Shown in the footer and given to search engines, so people can check the association is real.
    */
@@ -1636,6 +1771,51 @@ export interface AboutPageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donate-page_select".
+ */
+export interface DonatePageSelect<T extends boolean = true> {
+  intro?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+      };
+  campaigns?:
+    | T
+    | {
+        heading?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              label?: T;
+              text?: T;
+              raised?: T;
+              goal?: T;
+              needs?:
+                | T
+                | {
+                    amount?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              initiative?: T;
+              image?: T;
+              id?: T;
+            };
+      };
+  form?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "privacy-page_select".
  */
 export interface PrivacyPageSelect<T extends boolean = true> {
@@ -1663,6 +1843,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         instagram?: T;
         linkedin?: T;
       };
+  usdRate?: T;
   registration?:
     | T
     | {

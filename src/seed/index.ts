@@ -9,9 +9,10 @@ import { getPayload } from 'payload'
 
 import config from '../payload.config'
 import { REGISTRATION, seedAboutPage } from './aboutPage'
+import { seedDonatePage } from './donatePage'
 import { seedPrivacyPage } from './privacyPage'
 import { seedALessonAway } from './aLessonAway'
-import { ctx, FOUNDATION_FORM, uploadIfPresent, upsertBySlug } from './helpers'
+import { ctx, uploadIfPresent, upsertBySlug } from './helpers'
 
 const seed = async () => {
   const payload = await getPayload({ config })
@@ -41,10 +42,10 @@ const seed = async () => {
     data: {
       email: 'info7for1@gmail.com',
       tagline: 'Action Over Sympathy',
-      // One Google Form handles donations, volunteering and messages for now.
-      donateUrl: FOUNDATION_FORM,
-      volunteerUrl: FOUNDATION_FORM,
-      contactUrl: FOUNDATION_FORM,
+      // Donate, Volunteer and Contact use the site's own pages and forms.
+      donateUrl: null,
+      volunteerUrl: null,
+      contactUrl: null,
       social: {
         facebook: 'https://www.facebook.com/profile.php?id=61559432849309',
         linkedin: 'https://www.linkedin.com/company/7-for-1-foundation/',
@@ -94,7 +95,7 @@ const seed = async () => {
           { value: '18+', label: 'blind learners trained' },
           { value: '12+', label: 'young people trained in disability awareness' },
           { value: '3', label: 'initiatives launched' },
-          { value: '$1,000+', label: 'raised for A Lesson Away' },
+          { value: '$2,000+', label: 'raised for A Lesson Away (over 1.2 million FCFA)' },
         ],
       },
       disability: {
@@ -156,6 +157,7 @@ const seed = async () => {
   await seedALessonAway(payload)
   await seedAboutPage(payload)
   await seedPrivacyPage(payload)
+  await seedDonatePage(payload)
 
   await upsertBySlug(payload, 'projects', 'vifal-inclusive-teaching-training-2023', {
     title: 'Inclusive teaching training with VIFAL',

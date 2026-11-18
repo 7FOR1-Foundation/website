@@ -8,9 +8,6 @@ import type { Payload } from 'payload'
 // so sharing one object would stop every upload after the first.
 export const ctx = () => ({ disableRevalidate: true })
 
-export const FOUNDATION_FORM =
-  'https://docs.google.com/forms/d/e/1FAIpQLSegSSPllfUxddHCX7FFpwHiXc1ivawt1FwSMuY7xWS0FlWGJw/viewform'
-
 export const upsertBySlug = async <T extends 'initiatives' | 'projects'>(
   payload: Payload,
   collection: T,
