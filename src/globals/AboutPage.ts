@@ -15,7 +15,8 @@ export const AboutPage: GlobalConfig = {
   label: 'About page',
   admin: {
     group: 'Content',
-    description: 'The mission and vision on this page come from Home page → Who we are. Leave a section empty to hide it.',
+    description:
+      'The mission and vision on this page come from Home page → Who we are. Leave a section empty to hide it.',
   },
   access: { read: anyone, update: isStaff },
   hooks: { afterChange: [revalidateGlobal(['/about'])] },
@@ -28,7 +29,27 @@ export const AboutPage: GlobalConfig = {
           name: 'intro',
           fields: [
             { name: 'title', type: 'text', defaultValue: 'About Us' },
-            { name: 'text', type: 'textarea', admin: { description: 'One or two sentences at the top of the page.' } },
+            {
+              name: 'text',
+              type: 'textarea',
+              admin: { description: 'One or two sentences at the top of the page.' },
+            },
+          ],
+        },
+        {
+          label: 'Action Over Sympathy',
+          name: 'philosophy',
+          description: 'What the motto means in practice. Shown just after the mission and vision.',
+          fields: [
+            { name: 'heading', type: 'text', defaultValue: 'Action Over Sympathy' },
+            {
+              name: 'text',
+              type: 'textarea',
+              admin: {
+                description: 'Leave an empty line between paragraphs. Leave empty to hide it.',
+                rows: 6,
+              },
+            },
           ],
         },
         {
@@ -39,12 +60,21 @@ export const AboutPage: GlobalConfig = {
             {
               name: 'text',
               type: 'textarea',
-              admin: { description: 'Leave an empty line between paragraphs.', rows: 10 },
+              admin: {
+                description:
+                  'Leave an empty line between paragraphs. A paragraph in quotation marks (“…”) is shown as a highlighted quote.',
+                rows: 10,
+              },
             },
             {
               type: 'row',
               fields: [
-                { name: 'image', type: 'upload', relationTo: 'media', admin: { width: '50%', description: 'Optional photo beside the story.' } },
+                {
+                  name: 'image',
+                  type: 'upload',
+                  relationTo: 'media',
+                  admin: { width: '50%', description: 'Optional photo beside the story.' },
+                },
                 { name: 'imageCaption', type: 'text', admin: { width: '50%' } },
               ],
             },
@@ -71,11 +101,47 @@ export const AboutPage: GlobalConfig = {
                       name: 'icon',
                       type: 'select',
                       options: valueIconOptions,
-                      admin: { width: '40%', description: 'Each icon has its own colour. Without one, the value is numbered.' },
+                      admin: {
+                        width: '40%',
+                        description:
+                          'Each icon has its own colour. Without one, the value is numbered.',
+                      },
                     },
                   ],
                 },
                 { name: 'text', type: 'textarea', required: true },
+              ],
+            },
+          ],
+        },
+        {
+          // Stored as "objectives" (its earlier name) so no data is lost; shown as "Our approach".
+          label: 'Our approach',
+          name: 'objectives',
+          description:
+            'How we turn the mission into action. Ends with a link to the Initiatives page.',
+          fields: [
+            { name: 'heading', type: 'text', defaultValue: 'Our approach' },
+            { name: 'intro', type: 'textarea' },
+            {
+              name: 'items',
+              label: 'Ways we work',
+              type: 'array',
+              maxRows: 6,
+              labels: { singular: 'Way we work', plural: 'Ways we work' },
+              admin: { description: 'Three or four works best.' },
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                  admin: { description: 'A few words, e.g. “Open pathways to work”.' },
+                },
+                {
+                  name: 'text',
+                  type: 'textarea',
+                  required: true,
+                  admin: { description: 'One or two sentences.' },
+                },
               ],
             },
           ],
@@ -110,7 +176,11 @@ export const AboutPage: GlobalConfig = {
                     },
                   ],
                 },
-                { name: 'bio', type: 'textarea', admin: { description: 'Optional. One or two sentences.' } },
+                {
+                  name: 'bio',
+                  type: 'textarea',
+                  admin: { description: 'Optional. One or two sentences.' },
+                },
                 {
                   type: 'row',
                   fields: [
@@ -119,14 +189,20 @@ export const AboutPage: GlobalConfig = {
                       label: 'LinkedIn',
                       type: 'text',
                       validate: validateWebAddress,
-                      admin: { width: '50%', description: 'Optional. Their LinkedIn profile address.' },
+                      admin: {
+                        width: '50%',
+                        description: 'Optional. Their LinkedIn profile address.',
+                      },
                     },
                     {
                       name: 'show',
                       label: 'Show on the website',
                       type: 'checkbox',
                       defaultValue: false,
-                      admin: { width: '50%', description: 'Only after this person has agreed to be listed.' },
+                      admin: {
+                        width: '50%',
+                        description: 'Only after this person has agreed to be listed.',
+                      },
                     },
                   ],
                 },
@@ -135,18 +211,63 @@ export const AboutPage: GlobalConfig = {
           ],
         },
         {
-          label: 'Objectives',
-          name: 'objectives',
+          label: 'Partners',
+          name: 'partners',
+          description:
+            'Organisations you work with. Tick “Show on the website” only once the organisation has agreed to be named (and to its logo being used). The section stays hidden until one is shown.',
           fields: [
-            { name: 'heading', type: 'text', defaultValue: 'What we work towards' },
+            { name: 'heading', type: 'text', defaultValue: 'Our partners' },
             { name: 'intro', type: 'textarea' },
             {
               name: 'items',
-              label: 'Objectives',
+              label: 'Partners',
               type: 'array',
-              labels: { singular: 'Objective', plural: 'Objectives' },
-              admin: { description: 'Short, plain-language versions of the objectives in the constitution.' },
-              fields: [{ name: 'text', type: 'text', required: true }],
+              labels: { singular: 'Partner', plural: 'Partners' },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'name', type: 'text', required: true, admin: { width: '50%' } },
+                    {
+                      name: 'link',
+                      label: 'Website',
+                      type: 'text',
+                      validate: validateWebAddress,
+                      admin: { width: '50%', description: 'Optional.' },
+                    },
+                  ],
+                },
+                {
+                  name: 'text',
+                  label: 'What we do together',
+                  type: 'textarea',
+                  admin: { description: 'Optional. One sentence.' },
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'logo',
+                      type: 'upload',
+                      relationTo: 'media',
+                      admin: {
+                        width: '50%',
+                        description: 'Optional. Untick the watermark when uploading.',
+                      },
+                    },
+                    {
+                      name: 'show',
+                      label: 'Show on the website',
+                      type: 'checkbox',
+                      defaultValue: false,
+                      admin: {
+                        width: '50%',
+                        description: 'Only after the organisation has agreed.',
+                      },
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },
@@ -155,20 +276,26 @@ export const AboutPage: GlobalConfig = {
           name: 'location',
           fields: [
             { name: 'heading', type: 'text', defaultValue: 'Where we are' },
-            { name: 'text', type: 'textarea', admin: { description: 'City and region only. Don’t publish a home address.' } },
+            {
+              name: 'text',
+              type: 'textarea',
+              admin: { description: 'City and region only. Don’t publish a home address.' },
+            },
           ],
         },
         {
           label: 'Legal status',
           name: 'legal',
-          description: 'Shown beside “Where we are”. Never include ID card numbers or personal details.',
+          description:
+            'Shown beside “Where we are”. Never include ID card numbers or personal details.',
           fields: [
             { name: 'heading', type: 'text', defaultValue: 'Legal status' },
             {
               name: 'text',
               type: 'textarea',
               admin: {
-                description: 'How and when the association was legally declared. Leave an empty line between paragraphs. Leave empty to hide it.',
+                description:
+                  'How and when the association was legally declared. Leave an empty line between paragraphs. Leave empty to hide it.',
                 rows: 6,
               },
             },
@@ -177,7 +304,8 @@ export const AboutPage: GlobalConfig = {
         {
           label: 'Volunteering',
           name: 'volunteering',
-          description: 'Ways people can help, shown just above “Join us”. Leave the list empty to hide it.',
+          description:
+            'Ways people can help, shown just above “Join us”. Leave the list empty to hide it.',
           fields: [
             { name: 'heading', type: 'text', defaultValue: 'Ways to volunteer' },
             { name: 'intro', type: 'textarea' },
@@ -189,7 +317,12 @@ export const AboutPage: GlobalConfig = {
               admin: { description: 'Only list the help you currently need.' },
               fields: [
                 { name: 'title', type: 'text', required: true },
-                { name: 'text', type: 'textarea', required: true, admin: { description: 'One or two sentences on what it involves.' } },
+                {
+                  name: 'text',
+                  type: 'textarea',
+                  required: true,
+                  admin: { description: 'One or two sentences on what it involves.' },
+                },
               ],
             },
           ],
@@ -202,7 +335,10 @@ export const AboutPage: GlobalConfig = {
             {
               name: 'text',
               type: 'textarea',
-              admin: { description: 'Shown above the Volunteer, Donate and Contact buttons (their links are set in Site settings).' },
+              admin: {
+                description:
+                  'Shown above the Volunteer, Donate and Contact buttons (their links are set in Site settings).',
+              },
             },
           ],
         },

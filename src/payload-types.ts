@@ -1207,10 +1207,17 @@ export interface AboutPage {
      */
     text?: string | null;
   };
+  philosophy?: {
+    heading?: string | null;
+    /**
+     * Leave an empty line between paragraphs. Leave empty to hide it.
+     */
+    text?: string | null;
+  };
   story?: {
     heading?: string | null;
     /**
-     * Leave an empty line between paragraphs.
+     * Leave an empty line between paragraphs. A paragraph in quotation marks (“…”) is shown as a highlighted quote.
      */
     text?: string | null;
     /**
@@ -1249,6 +1256,26 @@ export interface AboutPage {
         }[]
       | null;
   };
+  objectives?: {
+    heading?: string | null;
+    intro?: string | null;
+    /**
+     * Three or four works best.
+     */
+    items?:
+      | {
+          /**
+           * A few words, e.g. “Open pathways to work”.
+           */
+          title?: string | null;
+          /**
+           * One or two sentences.
+           */
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   board?: {
     heading?: string | null;
     intro?: string | null;
@@ -1275,15 +1302,28 @@ export interface AboutPage {
         }[]
       | null;
   };
-  objectives?: {
+  partners?: {
     heading?: string | null;
     intro?: string | null;
-    /**
-     * Short, plain-language versions of the objectives in the constitution.
-     */
     items?:
       | {
-          text: string;
+          name: string;
+          /**
+           * Optional.
+           */
+          link?: string | null;
+          /**
+           * Optional. One sentence.
+           */
+          text?: string | null;
+          /**
+           * Optional. Untick the watermark when uploading.
+           */
+          logo?: (number | null) | Media;
+          /**
+           * Only after the organisation has agreed.
+           */
+          show?: boolean | null;
           id?: string | null;
         }[]
       | null;
@@ -1487,6 +1527,12 @@ export interface AboutPageSelect<T extends boolean = true> {
         title?: T;
         text?: T;
       };
+  philosophy?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+      };
   story?:
     | T
     | {
@@ -1508,6 +1554,19 @@ export interface AboutPageSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  objectives?:
+    | T
+    | {
+        heading?: T;
+        intro?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
   board?:
     | T
     | {
@@ -1524,7 +1583,7 @@ export interface AboutPageSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  objectives?:
+  partners?:
     | T
     | {
         heading?: T;
@@ -1532,7 +1591,11 @@ export interface AboutPageSelect<T extends boolean = true> {
         items?:
           | T
           | {
+              name?: T;
+              link?: T;
               text?: T;
+              logo?: T;
+              show?: T;
               id?: T;
             };
       };

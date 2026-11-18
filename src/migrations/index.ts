@@ -10,6 +10,7 @@ import * as migration_20261117_151614_legal_status from './20261117_151614_legal
 import * as migration_20261117_174839_blog_authors from './20261117_174839_blog_authors';
 import * as migration_20261117_191957_newsletter_double_opt_in from './20261117_191957_newsletter_double_opt_in';
 import * as migration_20261117_193743_privacy_page from './20261117_193743_privacy_page';
+import * as migration_20261118_084250_about_philosophy_approach_partners from './20261118_084250_about_philosophy_approach_partners';
 
 export const migrations = [
   {
@@ -70,6 +71,11 @@ export const migrations = [
   {
     up: migration_20261117_193743_privacy_page.up,
     down: migration_20261117_193743_privacy_page.down,
-    name: '20261117_193743_privacy_page'
+    name: '20261117_193743_privacy_page',
+  },
+  {
+    up: migration_20261118_084250_about_philosophy_approach_partners.up,
+    down: migration_20261118_084250_about_philosophy_approach_partners.down,
+    name: '20261118_084250_about_philosophy_approach_partners'
   },
 ];

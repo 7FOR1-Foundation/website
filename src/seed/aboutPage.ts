@@ -21,6 +21,68 @@ export const LEGAL_STATUS_TEXT = [
 export const LOCATION_TEXT =
   'Our headquarters are in Buea, South West Region. Most of our activities take place in Douala, and we work with people and partners anywhere in Cameroon.'
 
+/** "Our story" as it was live before the founder's account was added (November 2026). */
+export const PREVIOUS_STORY = [
+  'People with disabilities don’t need pity. They need access. That belief, captured in our motto “Action Over Sympathy”, is why Seven For One exists.',
+  'We began with practical steps. We trained blind learners in digital skills, with volunteers on the ground and presenters joining online. We also ran a four-week training with educators from VIFAL on inclusive teaching, disability rights, and cultural sensitivity. Our sister initiative, A Lesson Away, has helped children affected by the crisis in the Northwest and Southwest return to school since 2022.',
+  'Today, Seven For One is a registered association with its own constitution, officially registered on 17 April 2025. We are working toward an Africa where people with disabilities learn, work, and lead on equal terms, and where every child grows up knowing that inclusion is normal.',
+].join('\n\n')
+
+/** "Our story", opening with the founder's own account. A paragraph in quotation marks is shown as a quote. */
+export const STORY = [
+  'Seven For One began with a simple belief: no one should be shut out of opportunity because of something they didn’t choose.',
+  'For our founder, Mantoh Nasah Kuma, that belief is personal:',
+  '“Digital skills transformed my life and my wellbeing, and I’ve always believed everyone deserves that chance. In 2024, at WordPress Accessibility Day, I made a friend from the Philippines who is blind and teaches programming and web development. I was amazed, because in Cameroon blind people are rarely found in rooms like that. I went through school without a single blind or disabled classmate. I wanted to change that.”',
+  'So we started with practical steps. We trained blind learners in digital skills, with volunteers on the ground and presenters joining online. We ran a four-week course with educators from VIFAL on inclusive teaching, disability rights and cultural sensitivity. And we built on work that began in 2022 with our sister initiative, A Lesson Away, which helps children affected by the crisis in the Northwest and Southwest return to school.',
+  'Today, Seven For One is a registered association with its own constitution, officially registered on 17 April 2025. We are working toward an Africa where people with disabilities learn, work and lead on equal terms, and where every child grows up knowing that inclusion is normal.',
+].join('\n\n')
+
+/** Ways to volunteer: guest posts by experts (credited under Content → Authors). */
+export const WRITE_FOR_US = {
+  title: 'Write for our blog',
+  text: 'Are you a lawyer, health professional, teacher, employer or assistive technology user? Share what you know in a guest post on topics such as disability rights, health, inclusive education or accessible work. We credit you as the author. Use the Volunteer button below to get in touch.',
+}
+
+export const PHILOSOPHY = {
+  heading: 'Action Over Sympathy',
+  text: [
+    'People with disabilities deserve more than sympathy. They deserve access, opportunity, independence and the freedom to take part fully in society.',
+    'Inclusion takes practical action: removing barriers, building skills, challenging misconceptions and creating opportunities. We don’t just speak up for inclusion. We work to make it happen.',
+  ].join('\n\n'),
+}
+
+/** Stored in the `objectives` field (its earlier name); shown as “Our approach”. */
+export const APPROACH = {
+  heading: 'Our approach',
+  intro: 'We turn our mission into action in four ways, through long-running initiatives.',
+  items: [
+    {
+      title: 'Build digital skills',
+      text: 'We teach people with disabilities to use computers, phones and the internet with confidence, in sessions designed around how they learn.',
+    },
+    {
+      title: 'Make learning accessible',
+      text: 'We create learning materials for different kinds of disability and promote assistive technology such as screen readers.',
+    },
+    {
+      title: 'Open pathways to work',
+      text: 'We build market-ready skills, connect learners with mentors and partner with businesses that can offer jobs.',
+    },
+    {
+      title: 'Change attitudes',
+      text: 'We work with communities, schools and educators so inclusion becomes normal, and speak up for digital accessibility in policy and employment.',
+    },
+  ],
+}
+
+export const PARTNERS = {
+  heading: 'Our partners',
+  intro: 'Organisations we work with to make inclusion happen.',
+}
+
+export const BOARD_INTRO =
+  'Seven For One is governed by its General Assembly of members, which elects an Executive Board for a two-year term. Our constitution was adopted on 29 December 2024.'
+
 /** Site settings → Legal registration: the footer line and the date given to search engines. */
 export const REGISTRATION = {
   note: `Non-profit association legally declared in Cameroon, ${DECLARATION_REF}`,
@@ -48,17 +110,14 @@ export const seedAboutPage = async (payload: Payload, { force = false } = {}) =>
     slug: 'about-page',
     context: ctx(),
     data: {
+      philosophy: PHILOSOPHY,
       intro: {
         title: 'About Us',
         text: 'Seven For One Association (7FOR1) is a non-governmental organisation on a mission to empower Africans with disabilities through digital skills training and initiatives that promote their inclusion in society.',
       },
       story: {
         heading: 'Our story',
-        text: [
-          'People with disabilities don’t need pity. They need access. That belief, captured in our motto “Action Over Sympathy”, is why Seven For One exists.',
-          'We began with practical steps. We trained blind learners in digital skills, with volunteers on the ground and presenters joining online. We also ran a four-week training with educators from VIFAL on inclusive teaching, disability rights, and cultural sensitivity. Our sister initiative, A Lesson Away, has helped children affected by the crisis in the Northwest and Southwest return to school since 2022.',
-          'Today, Seven For One is a registered association with its own constitution, officially registered on 17 April 2025. We are working toward an Africa where people with disabilities learn, work, and lead on equal terms, and where every child grows up knowing that inclusion is normal.',
-        ].join('\n\n'),
+        text: STORY,
         ...(volunteersPhoto ? { image: volunteersPhoto.id } : {}),
         imageCaption: 'Some of our volunteers.',
       },
@@ -100,22 +159,10 @@ export const seedAboutPage = async (payload: Payload, { force = false } = {}) =>
       // Members are added in the admin, each with their consent.
       board: {
         heading: 'Our Executive Board',
-        intro: 'Our board members are elected by our General Assembly for a two-year term.',
+        intro: BOARD_INTRO,
       },
-      objectives: {
-        heading: 'What we work towards',
-        intro: 'From our constitution, in brief.',
-        items: [
-          { text: 'Train people with disabilities to use technology with confidence.' },
-          { text: 'Create accessible learning materials for different kinds of disability.' },
-          { text: 'Open pathways to work through market-ready skills, mentorship and partnerships with businesses.' },
-          { text: 'Raise awareness in communities and schools, and teach children why inclusion matters.' },
-          { text: 'Promote assistive technology and digital platforms that everyone can use.' },
-          { text: 'Advocate for digital accessibility in policy, technology and employment, locally, nationally and globally.' },
-          { text: 'Measure the results of our programmes and use them to improve.' },
-          { text: 'Build a network of people and organisations working for disability inclusion in the digital world.' },
-        ],
-      },
+      objectives: APPROACH,
+      partners: PARTNERS,
       location: {
         heading: 'Where we are',
         text: LOCATION_TEXT,
@@ -126,7 +173,8 @@ export const seedAboutPage = async (payload: Payload, { force = false } = {}) =>
       },
       volunteering: {
         heading: 'Ways to volunteer',
-        intro: 'You don’t need special qualifications. If you have some time and care about inclusion, there’s a way for you to help.',
+        intro:
+          'You don’t need special qualifications. If you have some time and care about inclusion, there’s a way for you to help.',
         roles: [
           {
             title: 'Support our trainings',
@@ -152,6 +200,7 @@ export const seedAboutPage = async (payload: Payload, { force = false } = {}) =>
             title: 'Communications',
             text: 'Write, take photos, design or manage social media, so more people hear about the work.',
           },
+          WRITE_FOR_US,
         ],
       },
       closing: {
