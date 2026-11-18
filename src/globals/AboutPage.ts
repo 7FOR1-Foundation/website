@@ -310,6 +310,15 @@ export const AboutPage: GlobalConfig = {
             { name: 'heading', type: 'text', defaultValue: 'Ways to volunteer' },
             { name: 'intro', type: 'textarea' },
             {
+              name: 'count',
+              label: 'Volunteers so far',
+              type: 'text',
+              admin: {
+                description:
+                  'Everyone who has ever volunteered with us, e.g. “10+”. Shown on the Volunteer page as “Join our team of 10+ volunteers”. Leave empty to hide it.',
+              },
+            },
+            {
               name: 'roles',
               label: 'Ways to help',
               type: 'array',

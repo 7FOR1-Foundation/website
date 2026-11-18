@@ -10,6 +10,22 @@ import type { Payload } from 'payload'
 
 import { paragraphs, uploadIfPresent, upsertBySlug } from './helpers'
 
+/** The secondary school phase, planned for 2027/28 (also a campaign on the Donate page). */
+export const SECONDARY_PHASE = {
+  previousNextText:
+    'As more of our students finish primary school, we are extending our support into secondary school, so that finishing primary is a beginning rather than the end of their education.',
+  nextText: [
+    'As our students finish primary school, we are extending our support into secondary school, so that finishing primary is a beginning rather than the end of their education.',
+    'Our secondary school phase starts in the 2027/28 school year with 2 students. Each needs about 100,000 FCFA for the year, so we are raising 200,000 FCFA in all.',
+  ].join('\n\n'),
+  buttonLabel: 'Support the secondary school phase',
+  timeline: {
+    period: '2027/28',
+    title: 'Planned: our secondary school phase begins',
+    text: 'We plan to support 2 students through secondary school, at about 100,000 FCFA each for the year.',
+  },
+}
+
 export const seedALessonAway = async (payload: Payload) => {
   const lessonAwayPhoto = await uploadIfPresent(
     payload,
@@ -145,6 +161,7 @@ export const seedALessonAway = async (payload: Payload) => {
           title: 'Our first students start secondary school',
           text: 'Our two graduates have started secondary school, and 13 students are in class with our support. Sponsors have given 380,000 FCFA for back to school so far.',
         },
+        SECONDARY_PHASE.timeline,
       ],
       funding: {
         period: '2024/25',
@@ -163,8 +180,9 @@ export const seedALessonAway = async (payload: Payload) => {
       },
       sponsorsText:
         'In 2024/25, 10 individual sponsors gave a total of 464,000 FCFA, enough to cover every child’s school fees. Thank you to each one of them.',
-      nextText:
-        'As more of our students finish primary school, we are extending our support into secondary school, so that finishing primary is a beginning rather than the end of their education.',
+      nextText: SECONDARY_PHASE.nextText,
+      nextButtonLabel: SECONDARY_PHASE.buttonLabel,
+      nextButtonLink: '/donate',
       nameNote:
         'Some of our early sponsors and partners know this initiative through Learn & Bridge Foundation, the name we first planned for our organisation. We changed course as our goals grew, and because other organisations already had similar names. A Lesson Away is the same initiative, now a sister initiative of Seven For One Association (7FOR1).',
     },

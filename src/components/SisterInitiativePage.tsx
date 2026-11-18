@@ -10,7 +10,13 @@ import type { Initiative, Project } from '@/payload-types'
 import { CmsLink } from './CmsLink'
 import { ProjectCard } from './ProjectCard'
 
-type Props = { initiative: Initiative; projects: Project[]; supportHref?: string | null; appealHref?: string | null }
+type Props = {
+  initiative: Initiative
+  projects: Project[]
+  supportHref?: string | null
+  appealHref?: string | null
+  nextHref?: string | null
+}
 
 const number = new Intl.NumberFormat('en')
 
@@ -18,7 +24,7 @@ const number = new Intl.NumberFormat('en')
  * A sister initiative's page, dressed in that initiative's own branding until
  * it has a website of its own. Every section hides itself when left empty.
  */
-export function SisterInitiativePage({ initiative, projects, supportHref, appealHref }: Props) {
+export function SisterInitiativePage({ initiative, projects, supportHref, appealHref, nextHref }: Props) {
   const s = initiative.sister ?? {}
   const dark = isHex(s.darkColour) ? s.darkColour : '#143f61'
   const main = isHex(s.mainColour) ? s.mainColour : '#1c78c3'
@@ -417,6 +423,13 @@ export function SisterInitiativePage({ initiative, projects, supportHref, appeal
             <div className="rounded-2xl border-t-8 border-(--sis-main) bg-white p-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] sm:p-10">
               <h2 className="font-serif text-2xl font-bold text-(--sis-dark) sm:text-3xl">What’s next</h2>
               <p className="mt-4 text-lg leading-8 whitespace-pre-line">{s.nextText}</p>
+              {nextHref && s.nextButtonLabel ? (
+                <p className="mt-6">
+                  <CmsLink href={nextHref} className="btn bg-(--sis-button) text-white hover:bg-(--sis-button-hover)">
+                    {s.nextButtonLabel}
+                  </CmsLink>
+                </p>
+              ) : null}
             </div>
           ) : null}
         </section>

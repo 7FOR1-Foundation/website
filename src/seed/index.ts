@@ -94,6 +94,7 @@ const seed = async () => {
         stats: [
           { value: '18+', label: 'blind learners trained' },
           { value: '12+', label: 'young people trained in disability awareness' },
+          { value: '10+', label: 'volunteers have given their time' },
           { value: '3', label: 'initiatives launched' },
           { value: '$2,000+', label: 'raised for A Lesson Away (over 1.2 million FCFA)' },
         ],

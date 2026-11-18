@@ -220,6 +220,24 @@ export const sisterPageField: Field = {
       ],
     },
     {
+      type: 'row',
+      fields: [
+        {
+          name: 'nextButtonLabel',
+          label: 'What’s next: button label',
+          type: 'text',
+          admin: { width: '50%', description: 'Optional, e.g. “Support the secondary school phase”.' },
+        },
+        {
+          name: 'nextButtonLink',
+          label: 'What’s next: button link',
+          type: 'text',
+          validate: validateLink,
+          admin: { width: '50%', description: 'e.g. /donate' },
+        },
+      ],
+    },
+    {
       name: 'nameNote',
       label: 'About our name',
       type: 'textarea',

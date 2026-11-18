@@ -355,6 +355,14 @@ export interface Initiative {
     sponsorsText?: string | null;
     nextText?: string | null;
     /**
+     * Optional, e.g. “Support the secondary school phase”.
+     */
+    nextButtonLabel?: string | null;
+    /**
+     * e.g. /donate
+     */
+    nextButtonLink?: string | null;
+    /**
      * Optional, e.g. an earlier name people may still know the initiative by.
      */
     nameNote?: string | null;
@@ -934,6 +942,8 @@ export interface InitiativesSelect<T extends boolean = true> {
             };
         sponsorsText?: T;
         nextText?: T;
+        nextButtonLabel?: T;
+        nextButtonLink?: T;
         nameNote?: T;
       };
   projects?: T;
@@ -1421,6 +1431,10 @@ export interface AboutPage {
     heading?: string | null;
     intro?: string | null;
     /**
+     * Everyone who has ever volunteered with us, e.g. “10+”. Shown on the Volunteer page as “Join our team of 10+ volunteers”. Leave empty to hide it.
+     */
+    count?: string | null;
+    /**
      * Only list the help you currently need.
      */
     roles?:
@@ -1751,6 +1765,7 @@ export interface AboutPageSelect<T extends boolean = true> {
     | {
         heading?: T;
         intro?: T;
+        count?: T;
         roles?:
           | T
           | {

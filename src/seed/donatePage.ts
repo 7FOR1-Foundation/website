@@ -9,6 +9,16 @@ import type { Payload } from 'payload'
 
 import { ctx } from './helpers'
 
+/** A Lesson Away's secondary school phase (2027/28): 2 students, about 100,000 FCFA each. */
+export const SECONDARY_CAMPAIGN = (lessonAway?: number) => ({
+  title: 'Secondary school phase 2027/28',
+  label: 'Planned for 2027/28',
+  text: 'Finishing primary school should be a beginning, not the end. From the 2027/28 school year, A Lesson Away will support students through secondary school, starting with 2 students.',
+  goal: 200000,
+  needs: [{ amount: 200000, text: 'secondary school costs for 2 students for the 2027/28 school year, about 100,000 FCFA each' }],
+  ...(lessonAway ? { initiative: lessonAway } : {}),
+})
+
 const initiativeId = async (payload: Payload, slug: string) => {
   const { docs } = await payload.find({
     collection: 'initiatives',
@@ -55,6 +65,7 @@ export const seedDonatePage = async (payload: Payload, { force = false } = {}) =
             ],
             ...(lessonAway ? { initiative: lessonAway } : {}),
           },
+          SECONDARY_CAMPAIGN(lessonAway),
           {
             title: 'Digital Skills Initiative 2027',
             label: 'Starting in 2027',

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { CountUp } from '@/components/CountUp'
 import { CmsLink } from '@/components/CmsLink'
 import { HeroPattern } from '@/components/HeroPattern'
 import { BinocularsIcon, PlayIcon, TargetIcon } from '@/components/icons'
@@ -129,12 +130,14 @@ export default async function HomePage() {
             <h2 id="impact-title" className="text-center text-3xl font-bold sm:text-4xl">
               {impact?.heading || 'Our Impact'}
             </h2>
-            {/* Centred row that works for any number of figures (the design had four; there are now three). */}
-            <dl className="mx-auto mt-10 flex max-w-6xl flex-wrap justify-center gap-x-12 gap-y-10 text-center lg:gap-x-20">
+            {/* Centred row that works for any number of figures; five fit on one line on wide screens. */}
+            <dl className="mx-auto mt-10 flex max-w-6xl flex-wrap justify-center gap-x-10 gap-y-10 text-center xl:gap-x-12">
               {impact.stats?.map((stat) => (
-                <div key={stat.id ?? stat.label} className="flex w-full max-w-60 flex-col-reverse justify-end gap-2 sm:w-52">
+                <div key={stat.id ?? stat.label} className="flex w-full max-w-60 flex-col-reverse justify-end gap-2 sm:w-48">
                   <dt className="text-base font-semibold">{stat.label}</dt>
-                  <dd className="text-4xl font-bold sm:text-5xl">{stat.value}</dd>
+                  <dd className="text-4xl font-bold sm:text-5xl">
+                    <CountUp value={stat.value} />
+                  </dd>
                 </div>
               ))}
             </dl>

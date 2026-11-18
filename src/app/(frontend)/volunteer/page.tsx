@@ -22,6 +22,11 @@ export default async function VolunteerPage() {
           {about.volunteering?.intro ||
             'You don’t need special qualifications. If you have some time and care about inclusion, there’s a way for you to help.'}
         </p>
+        {about.volunteering?.count ? (
+          <p className="mt-6 inline-block rounded-full bg-white px-5 py-2 text-base font-bold text-brand-700">
+            Join our team of {about.volunteering.count} volunteers
+          </p>
+        ) : null}
       </PageHero>
       <div className="container-page grid gap-10 py-14 sm:py-16 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-16">
         <aside className="text-lg leading-8">

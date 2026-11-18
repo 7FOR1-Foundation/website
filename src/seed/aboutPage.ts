@@ -173,6 +173,7 @@ export const seedAboutPage = async (payload: Payload, { force = false } = {}) =>
       },
       volunteering: {
         heading: 'Ways to volunteer',
+        count: '10+',
         intro:
           'You don’t need special qualifications. If you have some time and care about inclusion, there’s a way for you to help.',
         roles: [

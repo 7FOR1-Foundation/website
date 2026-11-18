@@ -40,6 +40,7 @@ export default async function InitiativePage({ params }: Props) {
         projects={projects}
         supportHref={resolveHref('/donate', links)}
         appealHref={resolveHref(initiative.sister?.appeal?.buttonLink || '/contact', links)}
+        nextHref={resolveHref(initiative.sister?.nextButtonLink, links)}
       />
     )
   }
