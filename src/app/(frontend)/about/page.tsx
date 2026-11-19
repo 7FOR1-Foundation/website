@@ -35,7 +35,10 @@ const paragraphs = (text?: string | null) =>
  */
 const lastRowSpan = (index: number, count: number) => {
   if (index !== count - 1) return ''
-  return [count % 2 === 1 ? 'sm:col-span-2' : '', count % 3 === 1 ? 'lg:col-span-3' : 'lg:col-span-1'].join(' ')
+  return [
+    count % 2 === 1 ? 'sm:col-span-2' : '',
+    count % 3 === 1 ? 'lg:col-span-3' : 'lg:col-span-1',
+  ].join(' ')
 }
 
 /** A paragraph wrapped in quotation marks (e.g. the founder's words) is shown as a quote. */
@@ -52,6 +55,7 @@ export default async function AboutUsPage() {
   const {
     intro,
     philosophy,
+    whyNow,
     story,
     values,
     objectives: approach,
@@ -65,6 +69,8 @@ export default async function AboutUsPage() {
   const boardMembers = (board?.members ?? []).filter((member) => member.show)
   const shownPartners = (partners?.items ?? []).filter((partner) => partner.show)
   const philosophyParagraphs = paragraphs(philosophy?.text)
+  const whyNowParagraphs = paragraphs(whyNow?.text)
+  const whyNowSources = (whyNow?.sources ?? []).filter((source) => source.url)
   const { mission, vision } = home.whoWeAre
   const storyImage = asMedia(story?.image)
   const storyParagraphs = paragraphs(story?.text)
@@ -155,6 +161,59 @@ export default async function AboutUsPage() {
               ))}
             </div>
           </div>
+        </section>
+      ) : null}
+
+      {/* Why now: why the work is urgent, with its sources */}
+      {whyNowParagraphs.length ? (
+        <section aria-labelledby="why-now-title" className="container-page pt-16 sm:pt-20">
+          <div
+            className={`grid items-start gap-10 ${whyNow?.highlight?.value ? 'lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-16' : ''}`}
+          >
+            <div className="max-w-3xl">
+              <h2 id="why-now-title" className="heading-section">
+                {whyNow?.heading || 'Why now'}
+              </h2>
+              <div className="mt-6 space-y-5 text-lg leading-8">
+                {whyNowParagraphs.map((text) => (
+                  <p key={text}>{text}</p>
+                ))}
+              </div>
+            </div>
+            {whyNow?.highlight?.value ? (
+              <figure className="rounded-2xl bg-brand-600 p-8 text-white on-dark lg:mt-16">
+                <p className="text-5xl font-extrabold sm:text-6xl">{whyNow.highlight.value}</p>
+                {whyNow.highlight.text ? (
+                  <p className="mt-4 text-lg leading-8">{whyNow.highlight.text}</p>
+                ) : null}
+                {whyNow.highlight.source ? (
+                  <figcaption className="mt-4 text-sm text-white/85">
+                    Source: {whyNow.highlight.source}
+                  </figcaption>
+                ) : null}
+              </figure>
+            ) : null}
+          </div>
+          {whyNowSources.length ? (
+            <div className="mt-8 max-w-3xl border-t border-brand-100 pt-4 text-sm leading-6">
+              <p className="font-semibold text-ink">Sources</p>
+              <ul className="mt-1 space-y-1">
+                {whyNowSources.map((source) => (
+                  <li key={source.id ?? source.url}>
+                    <a
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-600 underline underline-offset-4 hover:text-brand-700"
+                    >
+                      {source.label}
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </section>
       ) : null}
 

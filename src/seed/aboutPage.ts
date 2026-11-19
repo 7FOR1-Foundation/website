@@ -33,7 +33,7 @@ export const STORY = [
   'Seven For One began with a simple belief: no one should be shut out of opportunity because of something they didn’t choose.',
   'For our founder, Mantoh Nasah Kuma, that belief is personal:',
   '“Digital skills transformed my life and my wellbeing, and I’ve always believed everyone deserves that chance. In 2024, at WordPress Accessibility Day, I made a friend from the Philippines who is blind and teaches programming and web development. I was amazed, because in Cameroon blind people are rarely found in rooms like that. I went through school without a single blind or disabled classmate. I wanted to change that.”',
-  'So we started with practical steps. We trained blind learners in digital skills, with volunteers on the ground and presenters joining online. We ran a four-week course with educators from VIFAL on inclusive teaching, disability rights and cultural sensitivity. And we built on work that began in 2022 with our sister initiative, A Lesson Away, which helps children affected by the crisis in the Northwest and Southwest return to school.',
+  'So we started with practical steps. We trained blind learners in digital skills, with volunteers on the ground and presenters joining online. We ran a four-week course with educators from VIFAL on inclusive teaching, disability rights and cultural sensitivity. And we built on work that began in 2022 with our sister initiative, A Lesson Away, which helps children affected by the crisis in the North-West and South-West regions return to school.',
   'Today, Seven For One is a registered association with its own constitution, officially registered on 17 April 2025. We are working toward an Africa where people with disabilities learn, work and lead on equal terms, and where every child grows up knowing that inclusion is normal.',
 ].join('\n\n')
 
@@ -41,6 +41,36 @@ export const STORY = [
 export const WRITE_FOR_US = {
   title: 'Write for our blog',
   text: 'Are you a lawyer, health professional, teacher, employer or assistive technology user? Share what you know in a guest post on topics such as disability rights, health, inclusive education or accessible work. We credit you as the author. Use the Volunteer button below to get in touch.',
+}
+
+/**
+ * Why our work is urgent (November 2026). Uses the UN's and Human Rights Watch's
+ * neutral name for the crisis; every figure has a source in \`sources\`.
+ */
+export const WHY_NOW = {
+  heading: 'Why now',
+  text: [
+    'In Cameroon, people with disabilities were already shut out of school, work and community life. In the North-West and South-West regions, the crisis has turned that exclusion into an emergency.',
+    'When attacks forced families to flee, people with disabilities were often left behind, because relatives or carers could not take them along. Few received help afterwards. UNICEF reports that the prolonged crisis has made it even harder for children with disabilities to go to school.',
+    'We are registered in Buea, in the South-West, and our sister initiative A Lesson Away works with children in Bamenda, in the North-West. We focus on what lasts: education and access. We help children affected by the crisis return to school, and we teach digital skills that let people learn, work and stay connected, even when moving around is unsafe.',
+    'Every year a child spends out of school, and every year an adult spends cut off, is hard to win back. That is why we act now.',
+  ].join('\n\n'),
+  highlight: {
+    value: '9 of 45',
+    text: 'people with disabilities interviewed about the crisis had received any humanitarian assistance.',
+    source: 'Human Rights Watch, August 2019',
+  },
+  sources: [
+    {
+      label:
+        'Human Rights Watch: Cameroon: People With Disabilities Caught in Crisis (August 2019)',
+      url: 'https://www.hrw.org/news/2019/08/05/cameroon-people-disabilities-caught-crisis',
+    },
+    {
+      label: 'UNICEF Cameroon: Inclusive education in crisis (July 2026)',
+      url: 'https://www.unicef.org/cameroon/stories/inclusive-education-crisis-cameroon-adriel-kimberly',
+    },
+  ],
 }
 
 export const PHILOSOPHY = {
@@ -111,6 +141,7 @@ export const seedAboutPage = async (payload: Payload, { force = false } = {}) =>
     context: ctx(),
     data: {
       philosophy: PHILOSOPHY,
+      whyNow: WHY_NOW,
       intro: {
         title: 'About Us',
         text: 'Seven For One Association (7FOR1) is a non-governmental organisation on a mission to empower Africans with disabilities through digital skills training and initiatives that promote their inclusion in society.',

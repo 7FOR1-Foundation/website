@@ -53,6 +53,79 @@ export const AboutPage: GlobalConfig = {
           ],
         },
         {
+          label: 'Why now',
+          name: 'whyNow',
+          description:
+            'Why our work is urgent. Keep it factual and neutral: describe the impact on people, not the causes or sides of the crisis, and back every figure with a source below.',
+          fields: [
+            { name: 'heading', type: 'text', defaultValue: 'Why now' },
+            {
+              name: 'text',
+              type: 'textarea',
+              admin: {
+                description:
+                  'Leave an empty line between paragraphs. Leave empty to hide the section.',
+                rows: 8,
+              },
+            },
+            {
+              name: 'highlight',
+              label: 'Key figure',
+              type: 'group',
+              admin: { description: 'Optional. One figure shown large beside the text.' },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'value',
+                      type: 'text',
+                      admin: { width: '30%', description: 'e.g. “9 of 45”' },
+                    },
+                    {
+                      name: 'text',
+                      type: 'text',
+                      admin: {
+                        width: '70%',
+                        description: 'What the figure means, in one sentence.',
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: 'source',
+                  type: 'text',
+                  admin: { description: 'Who found it and when, e.g. “Human Rights Watch, 2019”.' },
+                },
+              ],
+            },
+            {
+              name: 'sources',
+              type: 'array',
+              labels: { singular: 'Source', plural: 'Sources' },
+              admin: {
+                description: 'The reports the facts come from, linked so readers can check them.',
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'label', type: 'text', required: true, admin: { width: '50%' } },
+                    {
+                      name: 'url',
+                      label: 'Link',
+                      type: 'text',
+                      required: true,
+                      validate: validateWebAddress,
+                      admin: { width: '50%' },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: 'Our story',
           name: 'story',
           fields: [

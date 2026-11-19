@@ -10,6 +10,23 @@ import type { Payload } from 'payload'
 
 import { paragraphs, uploadIfPresent, upsertBySlug } from './helpers'
 
+/** A Lesson Away as the first step to partnering with schools (November 2026): a plan, not yet started. */
+export const SCHOOLS_VISION = {
+  label: 'Our next step',
+  heading: 'From school fees to inclusive learning',
+  text: [
+    'A Lesson Away is our first step into schools. Paying fees and following up with families has built trust with the schools our students attend. Next, we want to work with these schools to:',
+    [
+      '- run disability awareness and sensitivity sessions for pupils and teachers',
+      '- train teachers in inclusive teaching, so children with disabilities can learn alongside their classmates',
+      '- promote inclusive learning through short courses and school clubs',
+    ].join('\n'),
+    'Children who learn together grow up seeing inclusion as normal. That is why we start early.',
+  ].join('\n\n'),
+  linkLabel: 'Our Disability Awareness & Sensitivity Training',
+  linkUrl: '/initiatives/disability-awareness-and-sensitivity-training',
+}
+
 /** The secondary school phase, planned for 2027/28 (also a campaign on the Donate page). */
 export const SECONDARY_PHASE = {
   previousNextText:
@@ -36,9 +53,16 @@ export const seedALessonAway = async (payload: Payload) => {
 
   // A Lesson Away: everything below comes from the initiative's own records
   // (2024/25 report and budget, summary, plans). Children are never named.
-  const GUARDIAN_CONSENT = 'Consent from the children’s guardians to publish this photo, confirmed by the foundation on 2026-11-12.'
+  const GUARDIAN_CONSENT =
+    'Consent from the children’s guardians to publish this photo, confirmed by the foundation on 2026-11-12.'
   const ala = async (file: string, alt: string, focal?: { focalX: number; focalY: number }) =>
-    uploadIfPresent(payload, path.resolve(process.cwd(), `assets/images/${file}`), alt, GUARDIAN_CONSENT, focal)
+    uploadIfPresent(
+      payload,
+      path.resolve(process.cwd(), `assets/images/${file}`),
+      alt,
+      GUARDIAN_CONSENT,
+      focal,
+    )
 
   const alaLogo = await uploadIfPresent(
     payload,
@@ -48,8 +72,14 @@ export const seedALessonAway = async (payload: Payload) => {
     undefined,
     false,
   )
-  const alaLaunch = await ala('ala-2022-launch.jpg', 'Five young children standing in front of a classroom blackboard')
-  const alaChildren = await ala('ala-2023-children.jpg', 'A group of smiling children standing together outdoors')
+  const alaLaunch = await ala(
+    'ala-2022-launch.jpg',
+    'Five young children standing in front of a classroom blackboard',
+  )
+  const alaChildren = await ala(
+    'ala-2023-children.jpg',
+    'A group of smiling children standing together outdoors',
+  )
   const alaClassVolunteers = await ala(
     'ala-2023-class-volunteers.jpg',
     'Two volunteers in orange T-shirts standing with a group of children in front of a blackboard',
@@ -65,17 +95,18 @@ export const seedALessonAway = async (payload: Payload) => {
     'Consent from both students’ guardians to publish this photo, confirmed by the foundation on 2026-11-12.',
     { focalX: 50, focalY: 35 },
   )
-  const ids = (...docs: ({ id: number } | null)[]) => docs.filter((d): d is { id: number } => Boolean(d)).map((d) => d.id)
+  const ids = (...docs: ({ id: number } | null)[]) =>
+    docs.filter((d): d is { id: number } => Boolean(d)).map((d) => d.id)
 
   await upsertBySlug(payload, 'initiatives', 'a-lesson-away', {
     coverImage: lessonAwayPhoto?.id,
     title: 'A Lesson Away Initiative',
     type: 'sister',
     summary:
-      'A separate initiative started by 7FOR1’s founder to help students affected by the crisis in the Northwest and Southwest return to school.',
-    goal: 'We help children affected by the crisis in Cameroon’s Northwest and Southwest regions, especially those facing disability or displacement, go back to school with dignity and support.',
+      'A separate initiative started by 7FOR1’s founder to help students affected by the crisis in the North-West and South-West regions return to school.',
+    goal: 'We help children affected by the crisis in Cameroon’s North-West and South-West regions, especially those facing disability or displacement, go back to school with dignity and support.',
     body: paragraphs(
-      'Since the crisis in Cameroon’s Northwest and Southwest regions began in 2016, families have been displaced, schools have closed, and many children have lost a parent or seen a parent injured. The relatives who take these children in often cannot afford school fees.',
+      'Since the crisis in Cameroon’s North-West and South-West regions began in 2016, families have been displaced, schools have closed, and many children have lost a parent or seen a parent injured. The relatives who take these children in often cannot afford school fees.',
       'In many communities, public schools, the most affordable option, have stayed closed. That leaves community, private and mission schools, which cost more. Some children are sent to learn a trade or work in other homes when they should be in class.',
       'A Lesson Away pays school fees and provides school materials so these children can return to class, with a special focus on children with disabilities and those displaced by the crisis.',
     ),
@@ -121,8 +152,14 @@ export const seedALessonAway = async (payload: Payload) => {
         { item: 'Regular follow-up and emotional support from trained volunteers' },
       ],
       steps: [
-        { title: 'Identify', text: 'Volunteers find children in need through community outreach, word of mouth and social media.' },
-        { title: 'Assess', text: 'We meet each child’s parent or guardian to understand the child’s school and emotional needs.' },
+        {
+          title: 'Identify',
+          text: 'Volunteers find children in need through community outreach, word of mouth and social media.',
+        },
+        {
+          title: 'Assess',
+          text: 'We meet each child’s parent or guardian to understand the child’s school and emotional needs.',
+        },
         {
           title: 'Provide',
           text: 'We pay school fees directly to the school, in instalments, and provide the books and materials each child needs.',
@@ -168,18 +205,28 @@ export const seedALessonAway = async (payload: Payload) => {
         raised: 464000,
         currency: 'FCFA',
         items: [
-          { label: 'School fees', amount: 350000, detail: 'Paid directly to the school for 10 children, in two instalments' },
+          {
+            label: 'School fees',
+            amount: 350000,
+            detail: 'Paid directly to the school for 10 children, in two instalments',
+          },
           {
             label: 'Volunteer transport',
             amount: 49000,
-            detail: 'Visiting families, the project launch, paying fees, and volunteer travel to Bamenda',
+            detail:
+              'Visiting families, the project launch, paying fees, and volunteer travel to Bamenda',
           },
-          { label: 'Launch and admin', amount: 31000, detail: 'Badges, T-shirts, the project stamp and photocopies' },
+          {
+            label: 'Launch and admin',
+            amount: 31000,
+            detail: 'Badges, T-shirts, the project stamp and photocopies',
+          },
         ],
         note: 'School fees are paid straight to the school, which gives a receipt for every payment. Any balance stays with the project for the next school year.',
       },
       sponsorsText:
         'In 2024/25, 10 individual sponsors gave a total of 464,000 FCFA, enough to cover every child’s school fees. Thank you to each one of them.',
+      vision: SCHOOLS_VISION,
       nextText: SECONDARY_PHASE.nextText,
       nextButtonLabel: SECONDARY_PHASE.buttonLabel,
       nextButtonLink: '/donate',

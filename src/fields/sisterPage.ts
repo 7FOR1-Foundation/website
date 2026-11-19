@@ -21,7 +21,8 @@ export const sisterPageField: Field = {
   type: 'group',
   admin: {
     condition: (data) => data?.type === 'sister',
-    description: 'This page uses the initiative’s own logo and colours. Leave a section empty to hide it.',
+    description:
+      'This page uses the initiative’s own logo and colours. Leave a section empty to hide it.',
   },
   fields: [
     {
@@ -31,8 +32,20 @@ export const sisterPageField: Field = {
         {
           type: 'row',
           fields: [
-            { name: 'logo', type: 'upload', relationTo: 'media', admin: { width: '50%', description: 'Square logo. Untick “Add watermark” when uploading it.' } },
-            { name: 'tagline', type: 'text', admin: { width: '50%', description: 'e.g. “Bringing students back to school.”' } },
+            {
+              name: 'logo',
+              type: 'upload',
+              relationTo: 'media',
+              admin: {
+                width: '50%',
+                description: 'Square logo. Untick “Add watermark” when uploading it.',
+              },
+            },
+            {
+              name: 'tagline',
+              type: 'text',
+              admin: { width: '50%', description: 'e.g. “Bringing students back to school.”' },
+            },
           ],
         },
         {
@@ -40,7 +53,11 @@ export const sisterPageField: Field = {
           fields: [
             colour('darkColour', 'Dark colour', 'Hero background (left side) and headings.'),
             colour('mainColour', 'Main colour', 'Hero background (right side) and links.'),
-            colour('accentColour', 'Accent colour', 'Highlights and buttons. Darkened automatically where white text needs it.'),
+            colour(
+              'accentColour',
+              'Accent colour',
+              'Highlights and buttons. Darkened automatically where white text needs it.',
+            ),
           ],
         },
       ],
@@ -50,12 +67,19 @@ export const sisterPageField: Field = {
       label: 'Key figures',
       type: 'array',
       labels: { singular: 'Figure', plural: 'Figures' },
-      admin: { description: 'Three or four headline numbers. Only use figures the records support.' },
+      admin: {
+        description: 'Three or four headline numbers. Only use figures the records support.',
+      },
       fields: [
         {
           type: 'row',
           fields: [
-            { name: 'value', type: 'text', required: true, admin: { width: '30%', description: 'e.g. 10' } },
+            {
+              name: 'value',
+              type: 'text',
+              required: true,
+              admin: { width: '30%', description: 'e.g. 10' },
+            },
             { name: 'label', type: 'text', required: true, admin: { width: '70%' } },
           ],
         },
@@ -65,12 +89,19 @@ export const sisterPageField: Field = {
       name: 'highlight',
       label: 'Milestone',
       type: 'group',
-      admin: { description: 'A recent achievement shown prominently below the key figures. Leave the title empty to hide it.' },
+      admin: {
+        description:
+          'A recent achievement shown prominently below the key figures. Leave the title empty to hide it.',
+      },
       fields: [
         {
           type: 'row',
           fields: [
-            { name: 'label', type: 'text', admin: { width: '30%', description: 'e.g. 2026 milestone' } },
+            {
+              name: 'label',
+              type: 'text',
+              admin: { width: '30%', description: 'e.g. 2026 milestone' },
+            },
             { name: 'title', type: 'text', admin: { width: '70%' } },
           ],
         },
@@ -78,11 +109,20 @@ export const sisterPageField: Field = {
         {
           type: 'row',
           fields: [
-            { name: 'image', type: 'upload', relationTo: 'media', admin: { width: '50%', description: 'Optional. Only with signed consent.' } },
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+              admin: { width: '50%', description: 'Optional. Only with signed consent.' },
+            },
             {
               name: 'imageCaption',
               type: 'text',
-              admin: { width: '50%', description: 'Shown under the photo, e.g. “Shared with the consent of their guardians.”' },
+              admin: {
+                width: '50%',
+                description:
+                  'Shown under the photo, e.g. “Shared with the consent of their guardians.”',
+              },
             },
           ],
         },
@@ -92,12 +132,19 @@ export const sisterPageField: Field = {
       name: 'appeal',
       label: 'Current appeal',
       type: 'group',
-      admin: { description: 'A call to donate for the current school year. Leave the title empty to hide it.' },
+      admin: {
+        description:
+          'A call to donate for the current school year. Leave the title empty to hide it.',
+      },
       fields: [
         {
           type: 'row',
           fields: [
-            { name: 'label', type: 'text', admin: { width: '30%', description: 'e.g. 2025/26 school year' } },
+            {
+              name: 'label',
+              type: 'text',
+              admin: { width: '30%', description: 'e.g. 2025/26 school year' },
+            },
             { name: 'title', type: 'text', admin: { width: '70%' } },
           ],
         },
@@ -111,7 +158,12 @@ export const sisterPageField: Field = {
             {
               type: 'row',
               fields: [
-                { name: 'value', type: 'text', required: true, admin: { width: '30%', description: 'e.g. 13' } },
+                {
+                  name: 'value',
+                  type: 'text',
+                  required: true,
+                  admin: { width: '30%', description: 'e.g. 13' },
+                },
                 { name: 'label', type: 'text', required: true, admin: { width: '70%' } },
               ],
             },
@@ -120,13 +172,20 @@ export const sisterPageField: Field = {
         {
           type: 'row',
           fields: [
-            { name: 'buttonLabel', type: 'text', admin: { width: '50%', description: 'e.g. Donate or get in touch' } },
+            {
+              name: 'buttonLabel',
+              type: 'text',
+              admin: { width: '50%', description: 'e.g. Donate or get in touch' },
+            },
             {
               name: 'buttonLink',
               type: 'text',
               validate: validateLink,
               defaultValue: '/contact',
-              admin: { width: '50%', description: '/contact opens the contact form set in Site settings.' },
+              admin: {
+                width: '50%',
+                description: '/contact opens the contact form set in Site settings.',
+              },
             },
           ],
         },
@@ -135,7 +194,10 @@ export const sisterPageField: Field = {
     {
       name: 'quote',
       type: 'textarea',
-      admin: { description: 'A short line shown as a large quotation, e.g. a guiding belief of the initiative.' },
+      admin: {
+        description:
+          'A short line shown as a large quotation, e.g. a guiding belief of the initiative.',
+      },
     },
     {
       name: 'provides',
@@ -164,7 +226,12 @@ export const sisterPageField: Field = {
         {
           type: 'row',
           fields: [
-            { name: 'period', type: 'text', required: true, admin: { width: '30%', description: 'e.g. 2024/25' } },
+            {
+              name: 'period',
+              type: 'text',
+              required: true,
+              admin: { width: '30%', description: 'e.g. 2024/25' },
+            },
             { name: 'title', type: 'text', required: true, admin: { width: '70%' } },
           ],
         },
@@ -175,7 +242,9 @@ export const sisterPageField: Field = {
           relationTo: 'media',
           hasMany: true,
           maxRows: 4,
-          admin: { description: 'Up to four. Only photos with signed consent from a parent or guardian.' },
+          admin: {
+            description: 'Up to four. Only photos with signed consent from a parent or guardian.',
+          },
         },
       ],
     },
@@ -189,7 +258,12 @@ export const sisterPageField: Field = {
           type: 'row',
           fields: [
             { name: 'period', type: 'text', admin: { width: '33%', description: 'e.g. 2024/25' } },
-            { name: 'raised', type: 'number', min: 0, admin: { width: '33%', description: 'Total donations received' } },
+            {
+              name: 'raised',
+              type: 'number',
+              min: 0,
+              admin: { width: '33%', description: 'Total donations received' },
+            },
             { name: 'currency', type: 'text', defaultValue: 'FCFA', admin: { width: '33%' } },
           ],
         },
@@ -206,16 +280,75 @@ export const sisterPageField: Field = {
                 { name: 'amount', type: 'number', required: true, min: 0, admin: { width: '30%' } },
               ],
             },
-            { name: 'detail', type: 'text', admin: { description: 'Optional, e.g. “10 children, two instalments”' } },
+            {
+              name: 'detail',
+              type: 'text',
+              admin: { description: 'Optional, e.g. “10 children, two instalments”' },
+            },
           ],
         },
-        { name: 'note', type: 'textarea', admin: { description: 'Optional, e.g. how fees are paid or what happens to any balance.' } },
+        {
+          name: 'note',
+          type: 'textarea',
+          admin: {
+            description: 'Optional, e.g. how fees are paid or what happens to any balance.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'vision',
+      label: 'Looking ahead',
+      type: 'group',
+      admin: {
+        description:
+          'Optional. A plan for the initiative’s future, shown before “Thank you to sponsors”. Write plans as plans (“we want to”), not as things already done.',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              admin: { width: '30%', description: 'A short tag, e.g. “Our next step”.' },
+            },
+            { name: 'heading', type: 'text', admin: { width: '70%' } },
+          ],
+        },
+        {
+          name: 'text',
+          type: 'textarea',
+          admin: {
+            rows: 10,
+            description:
+              'Leave an empty line between paragraphs. Start lines with “- ” to make a bulleted list.',
+          },
+        },
+        {
+          type: 'row',
+          fields: [
+            { name: 'linkLabel', label: 'Link label', type: 'text', admin: { width: '50%' } },
+            {
+              name: 'linkUrl',
+              label: 'Link',
+              type: 'text',
+              validate: validateLink,
+              admin: { width: '50%', description: 'e.g. /initiatives/…' },
+            },
+          ],
+        },
       ],
     },
     {
       type: 'row',
       fields: [
-        { name: 'sponsorsText', label: 'Thank you to sponsors', type: 'textarea', admin: { width: '50%' } },
+        {
+          name: 'sponsorsText',
+          label: 'Thank you to sponsors',
+          type: 'textarea',
+          admin: { width: '50%' },
+        },
         { name: 'nextText', label: 'What’s next', type: 'textarea', admin: { width: '50%' } },
       ],
     },
@@ -226,7 +359,10 @@ export const sisterPageField: Field = {
           name: 'nextButtonLabel',
           label: 'What’s next: button label',
           type: 'text',
-          admin: { width: '50%', description: 'Optional, e.g. “Support the secondary school phase”.' },
+          admin: {
+            width: '50%',
+            description: 'Optional, e.g. “Support the secondary school phase”.',
+          },
         },
         {
           name: 'nextButtonLink',
@@ -241,7 +377,9 @@ export const sisterPageField: Field = {
       name: 'nameNote',
       label: 'About our name',
       type: 'textarea',
-      admin: { description: 'Optional, e.g. an earlier name people may still know the initiative by.' },
+      admin: {
+        description: 'Optional, e.g. an earlier name people may still know the initiative by.',
+      },
     },
   ],
 }

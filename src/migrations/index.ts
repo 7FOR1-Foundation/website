@@ -15,6 +15,8 @@ import * as migration_20261118_093542_forms_and_donate_page from './20261118_093
 import * as migration_20261118_100120_volunteer_count from './20261118_100120_volunteer_count';
 import * as migration_20261118_100524_ala_next_button from './20261118_100524_ala_next_button';
 import * as migration_20261118_101541_project_details from './20261118_101541_project_details';
+import * as migration_20261119_171548_about_why_now from './20261119_171548_about_why_now';
+import * as migration_20261119_173821_ala_looking_ahead from './20261119_173821_ala_looking_ahead';
 
 export const migrations = [
   {
@@ -100,6 +102,16 @@ export const migrations = [
   {
     up: migration_20261118_101541_project_details.up,
     down: migration_20261118_101541_project_details.down,
-    name: '20261118_101541_project_details'
+    name: '20261118_101541_project_details',
+  },
+  {
+    up: migration_20261119_171548_about_why_now.up,
+    down: migration_20261119_171548_about_why_now.down,
+    name: '20261119_171548_about_why_now',
+  },
+  {
+    up: migration_20261119_173821_ala_looking_ahead.up,
+    down: migration_20261119_173821_ala_looking_ahead.down,
+    name: '20261119_173821_ala_looking_ahead'
   },
 ];

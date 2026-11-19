@@ -352,6 +352,25 @@ export interface Initiative {
        */
       note?: string | null;
     };
+    /**
+     * Optional. A plan for the initiative’s future, shown before “Thank you to sponsors”. Write plans as plans (“we want to”), not as things already done.
+     */
+    vision?: {
+      /**
+       * A short tag, e.g. “Our next step”.
+       */
+      label?: string | null;
+      heading?: string | null;
+      /**
+       * Leave an empty line between paragraphs. Start lines with “- ” to make a bulleted list.
+       */
+      text?: string | null;
+      linkLabel?: string | null;
+      /**
+       * e.g. /initiatives/…
+       */
+      linkUrl?: string | null;
+    };
     sponsorsText?: string | null;
     nextText?: string | null;
     /**
@@ -961,6 +980,15 @@ export interface InitiativesSelect<T extends boolean = true> {
                   };
               note?: T;
             };
+        vision?:
+          | T
+          | {
+              label?: T;
+              heading?: T;
+              text?: T;
+              linkLabel?: T;
+              linkUrl?: T;
+            };
         sponsorsText?: T;
         nextText?: T;
         nextButtonLabel?: T;
@@ -1325,6 +1353,40 @@ export interface AboutPage {
      * Leave an empty line between paragraphs. Leave empty to hide it.
      */
     text?: string | null;
+  };
+  whyNow?: {
+    heading?: string | null;
+    /**
+     * Leave an empty line between paragraphs. Leave empty to hide the section.
+     */
+    text?: string | null;
+    /**
+     * Optional. One figure shown large beside the text.
+     */
+    highlight?: {
+      /**
+       * e.g. “9 of 45”
+       */
+      value?: string | null;
+      /**
+       * What the figure means, in one sentence.
+       */
+      text?: string | null;
+      /**
+       * Who found it and when, e.g. “Human Rights Watch, 2019”.
+       */
+      source?: string | null;
+    };
+    /**
+     * The reports the facts come from, linked so readers can check them.
+     */
+    sources?:
+      | {
+          label: string;
+          url: string;
+          id?: string | null;
+        }[]
+      | null;
   };
   story?: {
     heading?: string | null;
@@ -1712,6 +1774,26 @@ export interface AboutPageSelect<T extends boolean = true> {
     | {
         heading?: T;
         text?: T;
+      };
+  whyNow?:
+    | T
+    | {
+        heading?: T;
+        text?: T;
+        highlight?:
+          | T
+          | {
+              value?: T;
+              text?: T;
+              source?: T;
+            };
+        sources?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+              id?: T;
+            };
       };
   story?:
     | T
