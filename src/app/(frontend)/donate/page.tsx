@@ -49,7 +49,7 @@ export default async function DonatePage() {
               const project = typeof campaign.project === 'object' ? campaign.project : null
               // The project page when there is one (more specific), otherwise the initiative's.
               const learnMore = project?.slug
-                ? { href: `/projects/${project.slug}`, title: `the ${project.title}` }
+                ? { href: `/projects/${project.slug}`, title: project.title }
                 : initiative?.slug
                   ? { href: `/initiatives/${initiative.slug}`, title: initiative.title }
                   : null

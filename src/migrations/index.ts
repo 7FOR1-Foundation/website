@@ -17,6 +17,7 @@ import * as migration_20261118_100524_ala_next_button from './20261118_100524_al
 import * as migration_20261118_101541_project_details from './20261118_101541_project_details';
 import * as migration_20261119_171548_about_why_now from './20261119_171548_about_why_now';
 import * as migration_20261119_173821_ala_looking_ahead from './20261119_173821_ala_looking_ahead';
+import * as migration_20261120_125644_contact_invite_reason from './20261120_125644_contact_invite_reason';
 
 export const migrations = [
   {
@@ -112,6 +113,11 @@ export const migrations = [
   {
     up: migration_20261119_173821_ala_looking_ahead.up,
     down: migration_20261119_173821_ala_looking_ahead.down,
-    name: '20261119_173821_ala_looking_ahead'
+    name: '20261119_173821_ala_looking_ahead',
+  },
+  {
+    up: migration_20261120_125644_contact_invite_reason.up,
+    down: migration_20261120_125644_contact_invite_reason.down,
+    name: '20261120_125644_contact_invite_reason'
   },
 ];

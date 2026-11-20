@@ -4,6 +4,7 @@ export const contactReasons = {
   partnership: 'Partnership',
   media: 'Media or press',
   writing: 'Writing for our blog',
+  invite: 'Inviting us to run a training',
   other: 'Something else',
 } as const
 

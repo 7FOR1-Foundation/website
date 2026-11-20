@@ -620,7 +620,7 @@ export interface Message {
   name: string;
   email: string;
   phone?: string | null;
-  reason?: ('question' | 'partnership' | 'media' | 'writing' | 'other') | null;
+  reason?: ('question' | 'partnership' | 'media' | 'writing' | 'invite' | 'other') | null;
   organisation?: string | null;
   location?: ('douala' | 'buea' | 'cameroon' | 'abroad') | null;
   ways?: string[] | null;
